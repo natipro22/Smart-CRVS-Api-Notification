@@ -16,8 +16,6 @@ namespace AppDiv.CRVS.Application.Contracts.DTOs
         public Guid? AddressId {get; set; }
         public bool Status { get; set; }
         public ICollection<GroupDTO> UserGroups { get; set; }
-        // public Guid PersonalInfoId { get; set; }
-        public PersonalInfoDTO PersonalInfo { get; set; }
 
     }
 }

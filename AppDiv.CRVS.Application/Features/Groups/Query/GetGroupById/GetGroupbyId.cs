@@ -1,7 +1,6 @@
 
 using AppDiv.CRVS.Application.Contracts.DTOs;
 using AppDiv.CRVS.Application.Features.Groups.Query.GetAllGroup;
-using AppDiv.CRVS.Application.Features.Lookups.Query.GetAllLookup;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
 using AppDiv.CRVS.Application.Mapper;
 using AppDiv.CRVS.Domain.Entities;

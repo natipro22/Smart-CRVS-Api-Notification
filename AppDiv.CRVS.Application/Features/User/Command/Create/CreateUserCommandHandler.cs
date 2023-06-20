@@ -25,12 +25,12 @@ namespace AppDiv.CRVS.Application.Features.User.Command.Create
         private readonly SMTPServerConfiguration _config;
 
         public CreateUserCommandHandler(IIdentityService identityService,
-                                        IGroupRepository groupRepository,
+                                        // IGroupRepository groupRepository,
                                         IFileService fileService, IMailService mailService,
                                         ISmsService smsService,
                                         IOptions<SMTPServerConfiguration> config)
         {
-            this._groupRepository = groupRepository;
+            // this._groupRepository = groupRepository;
             _identityService = identityService;
             _fileService = fileService;
             _mailService = mailService;
@@ -59,14 +59,14 @@ namespace AppDiv.CRVS.Application.Features.User.Command.Create
             }
             if (CreateUserCommadResponse.Success)
             {
-           
-                var listGroup = await _groupRepository.GetMultipleUserGroups(request.UserGroups);
 
-              
+                // var listGroup = await _groupRepository.GetMultipleUserGroups(request.UserGroups);
+
+
                 var user =  CustomMapper.Mapper.Map<ApplicationUser>(request);
-                user.PhoneNumber = user.PersonalInfo.ContactInfo.Phone;
-                user.PersonalInfo.PhoneNumber = user.PhoneNumber;
-                user.UserGroups = listGroup;
+                // user.PhoneNumber = user.PersonalInfo.ContactInfo.Phone;
+                // user.PersonalInfo.PhoneNumber = user.PhoneNumber;
+                // user.UserGroups = listGroup;
 
                 var response = await _identityService.createUser(user);
                 if (!response.result.Succeeded)

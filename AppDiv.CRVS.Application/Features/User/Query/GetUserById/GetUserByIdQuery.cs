@@ -40,17 +40,17 @@ namespace AppDiv.CRVS.Application.Features.User.Query.GetUserById
         {
             var userData = await _userRepository.GetAll().Where(u => u.Id == request.Id)
             .Include(u => u.UserGroups)
-            .Include(u => u.PersonalInfo)
-            .ThenInclude(p => p.ContactInfo)
+            // .Include(u => u.PersonalInfo)
+            // .ThenInclude(p => p.ContactInfo)
             .Select(u => new FetchSingleUserResponseDTO
             {
                 Id = u.Id,
                 UserName = u.UserName,
-                AddressId = u.AddressId,
+                // AddressId = u.AddressId,
                 Email = u.Email,
                 Status = !u.LockoutEnabled || u.LockoutEnd==null || u.LockoutEnd <= DateTime.Now,
                 UserGroups = u.UserGroups.Select(u => u.Id).ToList(),
-                PersonalInfo = CustomMapper.Mapper.Map<AddPersonalInfoRequest>(u.PersonalInfo)
+                // PersonalInfo = CustomMapper.Mapper.Map<AddPersonalInfoRequest>(u.PersonalInfo)
             }).FirstOrDefaultAsync();
             if (userData == null)
             {

@@ -12,7 +12,7 @@ namespace AppDiv.CRVS.Application.Features.User.Command.Create
         public Guid AddressId { get; set; }
         public List<Guid> UserGroups { get; init; }
         // public string Password { get; set; }
-        public AddPersonalInfoRequest PersonalInfo { get; set; }
+        // public AddPersonalInfoRequest PersonalInfo { get; set; }
 
     }
 }

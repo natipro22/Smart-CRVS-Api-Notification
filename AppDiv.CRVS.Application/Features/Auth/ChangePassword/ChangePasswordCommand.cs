@@ -17,19 +17,20 @@ namespace AppDiv.CRVS.Application.Features.Auth.ChangePassword
     public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, BaseResponse>
     {
         private readonly IIdentityService _identityService;
-        private readonly ISettingRepository _settingRepository;
+        // private readonly ISettingRepository _settingRepository;
 
-        public ChangePasswordCommandHandler(IIdentityService identityService, ISettingRepository settingRepository)
+        public ChangePasswordCommandHandler(IIdentityService identityService)
+        // , ISettingRepository settingRepository)
         {
             _identityService = identityService;
-            _settingRepository = settingRepository;
+            // _settingRepository = settingRepository;
         }
         public async Task<BaseResponse> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
                 var changePasswordResponse = new BaseResponse();
 
-                var validator = new ChangePasswordCommandValidator(_settingRepository);
-                var validationResult = await validator.ValidateAsync(request, cancellationToken);
+            var validator = new ChangePasswordCommandValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
                 //Check and log validation errors
                 if (validationResult.Errors.Count > 0)

@@ -47,28 +47,28 @@ namespace AppDiv.CRVS.Application.Features.Lookups.Query.GetAllUser
                     UserName = user.UserName,
                     Email = user.Email,
                     Status = !user.LockoutEnabled || user.LockoutEnd==null || user.LockoutEnd <= DateTime.Now,
-                    AddressId = user.AddressId,
-                    PersonalInfo = new PersonalInfoDTO
-                    {
-                        Id = user.PersonalInfo.Id,
-                        FirstName = user.PersonalInfo.FirstNameLang,
-                        MiddleName = user.PersonalInfo.MiddleNameLang,
+                    // AddressId = user.AddressId,
+                    // PersonalInfo = new PersonalInfoDTO
+                    // {
+                    //     Id = user.PersonalInfo.Id,
+                    //     FirstName = user.PersonalInfo.FirstNameLang,
+                    //     MiddleName = user.PersonalInfo.MiddleNameLang,
 
-                        // LastName = user.PersonalInfo.LastNameLang,
-                        BirthDate = user.PersonalInfo.BirthDate,
-                        NationalId = user.PersonalInfo.NationalId,
-                        // PlaceOfBirthLookup = user.PersonalInfo.PlaceOfBirthLookup.ValueLang,
-                        NationalityLookup = user.PersonalInfo.NationalityLookup.ValueLang,
-                        // TitleLookup = user.PersonalInfo.TitleLookup.ValueLang,
-                        // ReligionLookup = user.PersonalInfo.ReligionLookup.ValueLang,
-                        EducationalStatusLookup = user.PersonalInfo.EducationalStatusLookup.ValueLang,
-                        // TypeOfWorkLookup = user.PersonalInfo.TypeOfWorkLookup.ValueLang,
-                        MarraigeStatusLookup = user.PersonalInfo.MarraigeStatusLookup.ValueLang,
-                        NationLookup = user.PersonalInfo.NationLookup.ValueLang,
-                        CreatedDate = user.PersonalInfo.CreatedAt,
-                        // ContactInfo = _mapper.Map<ContactInfoDTO>(user.PersonalInfo.ContactInfo)
+                    //     // LastName = user.PersonalInfo.LastNameLang,
+                    //     BirthDate = user.PersonalInfo.BirthDate,
+                    //     NationalId = user.PersonalInfo.NationalId,
+                    //     // PlaceOfBirthLookup = user.PersonalInfo.PlaceOfBirthLookup.ValueLang,
+                    //     NationalityLookup = user.PersonalInfo.NationalityLookup.ValueLang,
+                    //     // TitleLookup = user.PersonalInfo.TitleLookup.ValueLang,
+                    //     // ReligionLookup = user.PersonalInfo.ReligionLookup.ValueLang,
+                    //     EducationalStatusLookup = user.PersonalInfo.EducationalStatusLookup.ValueLang,
+                    //     // TypeOfWorkLookup = user.PersonalInfo.TypeOfWorkLookup.ValueLang,
+                    //     MarraigeStatusLookup = user.PersonalInfo.MarraigeStatusLookup.ValueLang,
+                    //     NationLookup = user.PersonalInfo.NationLookup.ValueLang,
+                    //     CreatedDate = user.PersonalInfo.CreatedAt,
+                    //     // ContactInfo = _mapper.Map<ContactInfoDTO>(user.PersonalInfo.ContactInfo)
 
-                    }
+                    // }
                 }).ToList()
 
                 , request.PageCount ?? 1, request.PageSize ?? 10);

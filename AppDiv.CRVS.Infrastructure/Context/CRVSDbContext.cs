@@ -12,62 +12,22 @@ using AppDiv.CRVS.Domain;
 using AppDiv.CRVS.Infrastructure.Seed;
 using Audit.EntityFramework;
 using AppDiv.CRVS.Domain.Entities;
+using AppDiv.CRVS.Domain.Entities.Notifications;
 using Microsoft.AspNetCore.Identity;
 using AppDiv.CRVS.Domain.Configuration;
-using AppDiv.CRVS.Domain.Configurations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using AppDiv.CRVS.Domain.Configurations;
 
 namespace AppDiv.CRVS.Infrastructure
 {
     public class CRVSDbContext : AuditIdentityDbContext<ApplicationUser>, ICRVSDbContext
     {
         private readonly IUserResolverService userResolverService;
-
-        public DbSet<Lookup> Lookups { get; set; }
-        public DbSet<PersonalInfo> PersonalInfos { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
-        public DbSet<Address> Addresses { get; set; }
 
-        public DbSet<AuditLog> AuditLogs { get; set; }
-        public DbSet<Setting> Settings { get; set; }
-        public DbSet<CertificateTemplate> CertificateTemplates { get; set; }
-        public DbSet<Workflow> Workflows { get; set; }
-        public DbSet<Step> Steps { get; set; }
-        public DbSet<ContactInfo> ContactInfos { get; set; }
-
-        public DbSet<AdoptionEvent> AdoptionEvents { get; set; }
-        public DbSet<BirthEvent> BirthEvents { get; set; }
-        public DbSet<BirthNotification> BirthNotifications { get; set; }
-        public DbSet<Certificate> Certificates { get; set; }
-        // public DbSet<Court> Courts { get; set; }
-        public DbSet<CourtCase> CourtCases { get; set; }
-        public DbSet<DeathEvent> DeathEvents { get; set; }
-        public DbSet<DeathNotification> DeathNotifications { get; set; }
-        public DbSet<DivorceEvent> DivorceEvents { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<PaymentRate> PaymentRates { get; set; }
-        public DbSet<MarriageEvent> MarriageEvents { get; set; }
-        public DbSet<MarriageApplication> MarriageApplications { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<PaymentExamption> PaymentExamptions { get; set; }
-        public DbSet<PaymentExamptionRequest> PaymentExamptionRequests { get; set; }
-        public DbSet<PaymentRequest> PaymentRequests { get; set; }
-        public DbSet<Registrar> Registrars { get; set; }
-        public DbSet<SupportingDocument> SupportingDocuments { get; set; }
-        public DbSet<Witness> Witnesses { get; set; }
-        public DbSet<CertificateHistory> CertificateHistories { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
-        public DbSet<CertificateSerialRange> CertificateSerialRanges { get; set; }
-        public DbSet<CertificateSerialTransfer> CertificateSerialTransfers { get; set; }
-        public DbSet<Request> Requests { get; set; }
-        public DbSet<Plan> Plans { get; set; }
-
-
-
-
-
-
+        // public DbSet<AuditLog> AuditLogs { get; set; }
+        // public DbSet<BirthNotification> BirthNotifications { get; set; }
+        // public DbSet<DeathNotification> DeathNotifications { get; set; }
 
 
         public CRVSDbContext(DbContextOptions<CRVSDbContext> options, IUserResolverService userResolverService) : base(options)
@@ -90,42 +50,6 @@ namespace AppDiv.CRVS.Infrastructure
             {
                 modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
                 modelBuilder.ApplyConfiguration(new UserGroupEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new PersonalInfoEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new LookupEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new AddressEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new PaymentEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new PaymentExamptionEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new PaymentExamptionRequestEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new PaymentRequestEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new SupportingDocumentEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new CertificateEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new RegistrarEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new EventEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new MarriageEventEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new MarriageApplicationEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new WitnessEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new AdoptionEventEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new DivorceEventEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new BirthEventEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new BirthNotficationEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new DeathEventEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new DeathNotificationEntityConfiguration());
-
-                modelBuilder.ApplyConfiguration(new TransactionEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new RequestEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new CertificateSerialTransferEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new AuthenticationRequestConfiguration());
-                modelBuilder.ApplyConfiguration(new PlanEntityConfiguration());
-
-
-
 
             }
             #endregion

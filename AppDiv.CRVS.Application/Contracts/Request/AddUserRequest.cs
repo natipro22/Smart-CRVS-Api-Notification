@@ -16,6 +16,6 @@ namespace AppDiv.CRVS.Application.Contracts.Request
 
         public List<Guid> UserGroups { get; set; }
         // public string Password { get; set; }
-        public AddPersonalInfoRequest PersonalInfo { get; set; }
+        // public AddPersonalInfoRequest PersonalInfo { get; set; }
     }
 }

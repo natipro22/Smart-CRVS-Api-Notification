@@ -11,13 +11,6 @@ namespace AppDiv.CRVS.Domain.Configuration
         {
             builder.HasMany(m => m.UserGroups)
                .WithMany(m => m.ApplicationUsers);
-            builder.HasOne(m => m.Address)
-            .WithMany(n => n.ApplicationuserAddresses)
-            .HasForeignKey(m => m.AddressId)
-            .OnDelete(DeleteBehavior.Restrict);
-            builder.HasMany(m => m.Notifications)
-            .WithOne(n => n.Sender)
-            .HasForeignKey(n => n.SenderId);
         }
     }
 }

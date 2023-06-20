@@ -15,12 +15,13 @@ namespace AppDiv.CRVS.Application.Features.Auth.UnlockUser
     public class UnlockUserCommandHandler : IRequestHandler<UnlockUserCommand, BaseResponse>
     {
         private readonly IIdentityService _identityService;
-        private readonly ISettingRepository _settingRepository;
+        // private readonly ISettingRepository _settingRepository;
 
-        public UnlockUserCommandHandler(IIdentityService identityService, ISettingRepository settingRepository)
+        public UnlockUserCommandHandler(IIdentityService identityService)
+        // ISettingRepository settingRepository)
         {
             _identityService = identityService;
-            _settingRepository = settingRepository;
+            // _settingRepository = settingRepository;
         }
         public async Task<BaseResponse> Handle(UnlockUserCommand request, CancellationToken cancellationToken)
         {

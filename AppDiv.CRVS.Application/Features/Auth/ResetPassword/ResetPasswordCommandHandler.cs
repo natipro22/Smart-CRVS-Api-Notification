@@ -14,18 +14,19 @@ namespace AppDiv.CRVS.Application.Features.Auth.ResetPassword
     public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, BaseResponse>
     {
         private readonly IIdentityService _identityService;
-        private readonly ISettingRepository _settingRepository;
+        // private readonly ISettingRepository _settingRepository;
 
-        public ResetPasswordCommandHandler(IIdentityService identityService, ISettingRepository settingRepository)
+        public ResetPasswordCommandHandler(IIdentityService identityService)
+        //  ISettingRepository settingRepository)
         {
             _identityService = identityService;
-            _settingRepository = settingRepository;
+            // _settingRepository = settingRepository;
         }
         public async Task<BaseResponse> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             var resetPasswordResponse = new BaseResponse();
 
-            var validator = new ResetPasswordCommandValidator(_settingRepository);
+            var validator = new ResetPasswordCommandValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             //Check and log validation errors

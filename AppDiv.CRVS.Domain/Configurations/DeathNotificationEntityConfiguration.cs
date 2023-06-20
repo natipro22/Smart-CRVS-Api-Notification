@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AppDiv.CRVS.Domain.Entities;
+﻿using AppDiv.CRVS.Domain.Entities;
+using AppDiv.CRVS.Domain.Entities.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,14 +9,24 @@ namespace AppDiv.CRVS.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<DeathNotification> builder)
         {
-            builder.HasOne(m => m.CauseOfDeathInfoTypeLookup)
-               .WithMany(n => n.CauseOfDeathInfoTypeNavigation)
-               .HasForeignKey(m => m.CauseOfDeathInfoTypeLookupId);
+            builder.Property(s => s.CreatedBy)
+                .HasDefaultValue(Guid.Empty);
+            builder.Property(s => s.ModifiedBy)
+                .HasDefaultValue(Guid.Empty);
 
-            builder.HasOne(m => m.DeathEvent)
-               .WithOne(n => n.DeathNotification)
-               .HasForeignKey<DeathNotification>(m => m.DeathEventId)
-               .IsRequired(false);
+            builder.HasOne(m => m.Deceased)
+               .WithOne(d => d.DeathNotification)
+               .HasForeignKey<Deceased>(d => d.DeathNotificationId)
+               .IsRequired(true);
+            builder.HasOne(m => m.Registrar)
+               .WithOne(d => d.DeathNotification)
+               .HasForeignKey<DeathRegistrar>(d => d.DeathNotificationId)
+               .IsRequired(true);
+            builder.HasOne(m => m.Issuer)
+                    .WithMany(i => i.DeathNotification)
+                    .HasForeignKey(d => d.IssuerId)
+                    .IsRequired(true);
         }
+
     }
 }

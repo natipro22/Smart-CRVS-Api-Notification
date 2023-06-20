@@ -96,7 +96,7 @@ namespace AppDiv.CRVS.Application.Service
                 UserName = userName,
                 Email = email,
                 // UserGroupId = userGroupId,
-                PersonalInfoId = personalInfoId
+                // PersonalInfoId = personalInfoId
             };
             string password = GeneratePassword();
             var result = await _userManager.CreateAsync(newUser, password);
@@ -189,7 +189,7 @@ namespace AppDiv.CRVS.Application.Service
             user.Email = email;
             user.Otp = otp;
             user.OtpExpiredDate = otpExpiredDate;
-            user.PersonalInfoId = personalInfoId;
+            // user.PersonalInfoId = personalInfoId;
 
             var response = await _userManager.UpdateAsync(user);
 
@@ -217,7 +217,7 @@ namespace AppDiv.CRVS.Application.Service
             existingUser.Email = user.Email;
             // existingUser.Otp = otp;
             // existingUser.OtpExpiredDate = otpExpiredDate;
-            existingUser.PersonalInfo = user.PersonalInfo;
+            // existingUser.PersonalInfo = user.PersonalInfo;
 
             var response = await _userManager.UpdateAsync(existingUser);
 
@@ -294,18 +294,18 @@ namespace AppDiv.CRVS.Application.Service
         }
         public IQueryable<ApplicationUser> AllUsersDetail()
         {
-            return _userManager.Users
-            .Include(u => u.PersonalInfo)
-            .Include(p => p.PersonalInfo.BirthAddress)
-            .Include(p => p.PersonalInfo.ResidentAddress)
-            .Include(p => p.PersonalInfo.PlaceOfBirthLookup)
-            .Include(p => p.PersonalInfo.NationalityLookup)
-            .Include(p => p.PersonalInfo.TitleLookup)
-            .Include(p => p.PersonalInfo.ReligionLookup)
-            .Include(p => p.PersonalInfo.EducationalStatusLookup)
-            .Include(p => p.PersonalInfo.TypeOfWorkLookup)
-            .Include(p => p.PersonalInfo.MarraigeStatusLookup)
-            .Include(p => p.PersonalInfo.NationLookup);
+            return _userManager.Users;
+            // .Include(u => u.PersonalInfo)
+            // .Include(p => p.PersonalInfo.BirthAddress)
+            // .Include(p => p.PersonalInfo.ResidentAddress)
+            // .Include(p => p.PersonalInfo.PlaceOfBirthLookup)
+            // .Include(p => p.PersonalInfo.NationalityLookup)
+            // .Include(p => p.PersonalInfo.TitleLookup)
+            // .Include(p => p.PersonalInfo.ReligionLookup)
+            // .Include(p => p.PersonalInfo.EducationalStatusLookup)
+            // .Include(p => p.PersonalInfo.TypeOfWorkLookup)
+            // .Include(p => p.PersonalInfo.MarraigeStatusLookup)
+            // .Include(p => p.PersonalInfo.NationLookup);
         }
 
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
@@ -323,8 +323,9 @@ namespace AppDiv.CRVS.Application.Service
         {
             return _userManager.Users
                                     .Where(u => u.Id == userId)
-                                    .Include(u => u.PersonalInfo)
-                                    .ThenInclude(p => p.ContactInfo).SingleOrDefaultAsync();
+                                    // .Include(u => u.PersonalInfo)
+                                    // .ThenInclude(p => p.ContactInfo)
+                                    .SingleOrDefaultAsync();
         }
 
     }

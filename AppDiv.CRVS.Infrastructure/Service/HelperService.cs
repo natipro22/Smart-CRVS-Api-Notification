@@ -18,19 +18,19 @@ namespace AppDiv.CRVS.Infrastructure.Services
             _context = context;
         }
 
-    
 
-        public  JObject getPasswordPolicy()
-        {
 
-            var policy = _context.Settings.Where(s => s.Key.ToLower() == "passwordpolicy")
-                    .Select(s => s.Value).FirstOrDefault();
-            if (policy == null)
-            {
-                throw new NotFoundException("password policy setting not found");
-            }
-            return policy;
-        }
+        // public  JObject getPasswordPolicy()
+        // {
+
+        //     var policy = null;//_context.Settings.Where(s => s.Key.ToLower() == "passwordpolicy")
+        //                       // .Select(s => s.Value).FirstOrDefault();
+        //     if (policy == null)
+        //     {
+        //         throw new NotFoundException("password policy setting not found");
+        //     }
+        //     return policy;
+        // }
         public static T UpdateObjectFeilds<T>(T personalInfo, Dictionary<string, object> fieldValues)
         {
             foreach (var fieldValue in fieldValues)

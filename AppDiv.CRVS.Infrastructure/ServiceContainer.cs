@@ -14,7 +14,6 @@ using Twilio.Clients;
 using AppDiv.CRVS.Application.Interfaces;
 using AppDiv.CRVS.Application.Service;
 using AppDiv.CRVS.Infrastructure.Extensions;
-using AppDiv.CRVS.Infrastructure.Service;
 // using AppDiv.CRVS.Infrastructure.Extensions;
 
 namespace AppDiv.CRVS.Infrastructure
@@ -105,66 +104,13 @@ namespace AppDiv.CRVS.Infrastructure
             #region Repositories DI         
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<ILookupRepository, LookupRepository>();
-            services.AddScoped<ISettingRepository, SettingRepository>();
-            services.AddScoped<IPersonalInfoRepository, PersonalInfoRepository>();
-            services.AddScoped<IContactInfoRepository, ContactInfoRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IWorkflowRepository, WorkflowRepository>();
-            services.AddScoped<ICourtRepository, CourtRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IStepRepository, StepRepository>();
-            services.AddTransient<ICertificateRepository, CertificateRepository>();
-            services.AddTransient<IPaymentExamptionRequestRepository, PaymentExamptionRequestRepository>();
-
-            services.AddTransient<IMarriageApplicationRepository, MarriageApplicationRepository>();
-            services.AddTransient<IMarriageEventRepository, MarriageEventRepository>();
-            services.AddTransient<IAdoptionEventRepository, AdoptionEventRepository>();
-            services.AddScoped<IDeathEventRepository, DeathEventRepository>();
-            services.AddScoped<IBirthEventRepository, BirthEventRepository>();
-            services.AddTransient<IDivorceEventRepository, DivorceEventRepository>();
-
-            services.AddTransient<ICertificateTemplateRepository, CertificateTemplateRepository>();
-            services.AddTransient<IPaymentRateRepository, PaymentRateRepository>();
-            services.AddTransient<IPaymentRepository, PaymentRepository>();
-            services.AddTransient<IPaymentRequestRepository, PaymentRequestRepository>();
-            services.AddTransient<ISupportingDocumentRepository, SupportingDocumentRepository>();
-
-            services.AddTransient<IEventRepository, EventRepository>();
-            services.AddTransient<IPlanRepository, PlanRepository>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
 
 
             services.AddScoped<CRVSDbContextInitializer>();
-            services.AddScoped<IAddressLookupRepository, AddressLookupRepository>();
             services.AddHttpClient<ITwilioRestClient, TwilioClient>();
-            services.AddScoped<IDateAndAddressService, DateAndAddressService>();
-            services.AddScoped<IDateAndAddressService, DateAndAddressService>();
-            services.AddScoped<ILookupFromId, LookupFromId>();
-            services.AddScoped<ICertificateGenerator, CertificateGenerator>();
-            services.AddScoped<IArchiveGenerator, ArchiveGenerator>();
-            services.AddScoped<IAddressLookupRepository, AddressLookupRepository>();
-            services.AddScoped<ICertificateHistoryRepository, CertificateHistoryRepository>();
-            services.AddScoped<ICertificateTransferRepository, CertificateTransferRepository>();
-            services.AddScoped<ICertificateRangeRepository, CertificateRangeRepository>();
-            services.AddScoped<ICorrectionRequestRepostory, CorrectionRequestRepostory>();
-            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-            services.AddScoped<IRequestRepostory, RequestRepostory>();
-
-            services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<ITransactionService, TransactionService>();
-            services.AddScoped<IUpdateEventPaymetnService, UpdateEventPaymetnService>();
-
-
-
-
-
-
-            // services.AddScoped<IReturnAdoptionCertfcate, ReturnAdoptionCertfcate>();
-
-
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             #endregion Repositories DI
 
