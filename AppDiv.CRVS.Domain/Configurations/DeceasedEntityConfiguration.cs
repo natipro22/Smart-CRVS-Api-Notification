@@ -5,17 +5,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AppDiv.CRVS.Domain.Configurations
 {
-    public class DeathNotificationEntityConfiguration : IEntityTypeConfiguration<DeathNotification>
+    public class DeceasedEntityConfiguration : IEntityTypeConfiguration<Deceased>
     {
-        public void Configure(EntityTypeBuilder<DeathNotification> builder)
+        public void Configure(EntityTypeBuilder<Deceased> builder)
         {
             builder.Property(s => s.CreatedBy)
                 .HasDefaultValue(Guid.Empty);
             builder.Property(s => s.ModifiedBy)
                 .HasDefaultValue(Guid.Empty);
 
-            // builder.HasOne(m => m.Deceased)
-            //    .WithOne(d => d.DeathNotification)
+            // builder.HasOne(m => m.DeathNotification)
+            //    .WithOne(d => d.Deceased)
             //    .HasForeignKey<Deceased>(d => d.DeathNotificationId)
             //    .IsRequired(false);
             // builder.HasOne(m => m.Registrar)

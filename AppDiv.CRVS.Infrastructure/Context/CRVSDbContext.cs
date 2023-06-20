@@ -27,7 +27,9 @@ namespace AppDiv.CRVS.Infrastructure
 
         // public DbSet<AuditLog> AuditLogs { get; set; }
         // public DbSet<BirthNotification> BirthNotifications { get; set; }
-        // public DbSet<DeathNotification> DeathNotifications { get; set; }
+        public DbSet<DeathNotification> DeathNotifications { get; set; }
+        public DbSet<BirthNotification> BirthNotifications { get; set; }
+        public DbSet<Issuer> Issuers { get; set; }
 
 
         public CRVSDbContext(DbContextOptions<CRVSDbContext> options, IUserResolverService userResolverService) : base(options)
@@ -48,9 +50,10 @@ namespace AppDiv.CRVS.Infrastructure
 
             #region Entity Configuration
             {
-                modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-                modelBuilder.ApplyConfiguration(new UserGroupEntityConfiguration());
-
+                // modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+                // modelBuilder.ApplyConfiguration(new UserGroupEntityConfiguration());
+                modelBuilder.ApplyConfiguration(new DeathNotificationEntityConfiguration());
+                // modelBuilder.ApplyConfiguration(new DeceasedEntityConfiguration());
             }
             #endregion
             base.OnModelCreating(modelBuilder);

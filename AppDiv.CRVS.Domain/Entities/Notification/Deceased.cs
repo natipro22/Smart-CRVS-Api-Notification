@@ -4,7 +4,7 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
 {
     public class Deceased : BaseAuditableEntity
     {
-        public Guid DeathNotificationId { get; set; }
+        public Guid? DeathNotificationId { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;

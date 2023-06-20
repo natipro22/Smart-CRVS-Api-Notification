@@ -3,6 +3,7 @@ using System;
 using AppDiv.CRVS.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppDiv.CRVS.Infrastructure.Migrations
 {
     [DbContext(typeof(CRVSDbContext))]
-    partial class CRVSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230620082156_deathNotificationModel")]
+    partial class deathNotificationModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,47 +94,6 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("DeliveryTypeId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("FacilityAddressId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("FacilityOwnershipId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("IssuerId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("PlaceOfBirthId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("TypeOfBirth")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BirthNotifications");
-                });
-
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -173,48 +134,7 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IssuerId");
-
                     b.ToTable("DeathNotifications");
-                });
-
-            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("IssuedDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Issuers");
                 });
 
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.UserGroup", b =>
@@ -394,15 +314,6 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", b =>
-                {
-                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", null)
-                        .WithMany("DeathNotification")
-                        .HasForeignKey("IssuerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ApplicationUserUserGroup", b =>
                 {
                     b.HasOne("AppDiv.CRVS.Domain.ApplicationUser", null)
@@ -467,11 +378,6 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", b =>
-                {
-                    b.Navigation("DeathNotification");
                 });
 #pragma warning restore 612, 618
         }

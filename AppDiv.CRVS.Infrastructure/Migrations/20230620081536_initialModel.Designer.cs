@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppDiv.CRVS.Infrastructure.Migrations
 {
     [DbContext(typeof(CRVSDbContext))]
-    [Migration("20230619143504_initialModel")]
+    [Migration("20230620081536_initialModel")]
     partial class initialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

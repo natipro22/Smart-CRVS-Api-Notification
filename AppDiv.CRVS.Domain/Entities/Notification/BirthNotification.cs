@@ -11,10 +11,12 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public Guid PlaceOfBirthId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
-        public MotherInfo Mother { get; set; }
+        // public MotherInfo Mother { get; set; }
         public Guid DeliveryTypeId { get; set; }
         public Guid TypeOfBirth { get; set; }
-        public ICollection<ChildInfo> Childrens { get; set; }
+        public Guid IssuerId { get; set; }
+        // public virtual Issuer Issuer { get; set; }
+        // public ICollection<ChildInfo> Childrens { get; set; }
 
     }
 }
