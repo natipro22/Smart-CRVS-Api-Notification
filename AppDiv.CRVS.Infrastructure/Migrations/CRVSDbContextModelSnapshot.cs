@@ -130,6 +130,8 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IssuerId");
+
                     b.ToTable("BirthNotifications");
                 });
 
@@ -188,7 +190,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("char(36)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -210,7 +214,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("char(36)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
                     b.HasKey("Id");
 
@@ -394,13 +400,26 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", b =>
+                {
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", "Issuer")
+                        .WithMany("BirthNotification")
+                        .HasForeignKey("IssuerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Issuer");
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", b =>
                 {
-                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", null)
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", "Issuer")
                         .WithMany("DeathNotification")
                         .HasForeignKey("IssuerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Issuer");
                 });
 
             modelBuilder.Entity("ApplicationUserUserGroup", b =>
@@ -471,6 +490,8 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
 
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", b =>
                 {
+                    b.Navigation("BirthNotification");
+
                     b.Navigation("DeathNotification");
                 });
 #pragma warning restore 612, 618

@@ -172,11 +172,8 @@ app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();
 app.UseCors("CorsPolicy");
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-    endpoints.MapHub<MessageHub>("/Notification");
-});
+
+
 
 app.MapControllers();
 

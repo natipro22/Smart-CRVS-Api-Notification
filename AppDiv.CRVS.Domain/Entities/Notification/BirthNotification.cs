@@ -15,7 +15,7 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public Guid DeliveryTypeId { get; set; }
         public Guid TypeOfBirth { get; set; }
         public Guid IssuerId { get; set; }
-        // public virtual Issuer Issuer { get; set; }
+        public virtual Issuer Issuer { get; set; }
         // public ICollection<ChildInfo> Childrens { get; set; }
 
     }
