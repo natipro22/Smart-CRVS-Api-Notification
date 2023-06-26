@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AppDiv.CRVS.Infrastructure.Context
 {
-    public interface ICRVSDbContext : IDbContext
+    public interface INotificationDbContext
     {
         // DatabaseFacade database { get; }
 

@@ -14,6 +14,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using AppDiv.CRVS.Domain.Entities.Notifications;
+using AppDiv.CRVS.Application.Contracts.Request.DeathNotifications;
 
 namespace AppDiv.CRVS.Application.Mapper
 {
@@ -54,9 +56,14 @@ namespace AppDiv.CRVS.Application.Mapper
             CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
 
             CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
+            CreateMap<DeathNotification, AddDeathNotificationRequest>().ReverseMap();
+            CreateMap<DeathNotification, DeathNotificationDTO>().ReverseMap();
+            CreateMap<DeathRegistrar, AddDeathRegistrar>().ReverseMap();
+            CreateMap<Deceased, AddDeceased>().ReverseMap();
+            CreateMap<DeathRegistrar, UpdateDeathRegistrar>().ReverseMap();
+            CreateMap<Deceased, UpdateDeceased>().ReverseMap();
 
             // CreateMap<Transaction, TransactionRequestDTO>().ReverseMap();
-
 
             // CreateMap<WitnessArchive, Witness>().ReverseMap();
 

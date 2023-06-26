@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AppDiv.CRVS.Application.Mapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppDiv.CRVS.Application.Common;
 
@@ -34,5 +35,16 @@ public class PaginatedList<T>
         var items = source.Skip((pageCount - 1) * pageSize).Take(pageSize).ToList();
 
         return new PaginatedList<T>(items, count, pageCount, pageSize);
+    }
+}
+
+public static class PaginationExtension 
+{
+    public static async Task<PaginatedList<TDto>> PaginateAsync<T, TDto>(this IQueryable<T> source, int pageCount, int pageSize)
+    {
+        var count = await source.CountAsync();
+        var items = await source.Skip((pageCount - 1) * pageSize).Take(pageSize).ToListAsync();
+
+        return new PaginatedList<TDto>(CustomMapper.Mapper.Map<List<TDto>>(items), count, pageCount, pageSize);
     }
 }

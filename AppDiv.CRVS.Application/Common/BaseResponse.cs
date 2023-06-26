@@ -54,6 +54,12 @@ namespace AppDiv.CRVS.Application.Common
             this.Status = 200;
             this.Message = $"{entityName} information has been deleted!";
         }
+        public void Updated(string entityName = null)
+        {
+            this.Success = true;
+            this.Status = 200;
+            this.Message = $"{entityName} information has been updated!";
+        }
 
     }
 }

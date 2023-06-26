@@ -13,15 +13,16 @@ namespace AppDiv.CRVS.Domain.Configurations
                 .HasDefaultValue(Guid.Empty);
             builder.Property(s => s.ModifiedBy)
                 .HasDefaultValue(Guid.Empty);
+            
 
-            // builder.HasOne(m => m.Deceased)
-            //    .WithOne(d => d.DeathNotification)
-            //    .HasForeignKey<Deceased>(d => d.DeathNotificationId)
-            //    .IsRequired(false);
-            // builder.HasOne(m => m.Registrar)
-            //    .WithOne(d => d.DeathNotification)
-            //    .HasForeignKey<DeathRegistrar>(d => d.DeathNotificationId)
-            //    .IsRequired(true);
+            builder.HasOne(m => m.Deceased)
+               .WithOne(d => d.DeathNotification)
+               .HasForeignKey<Deceased>(d => d.DeathNotificationId)
+               .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(m => m.Registrar)
+               .WithOne(d => d.DeathNotification)
+               .HasForeignKey<DeathRegistrar>(d => d.DeathNotificationId)
+               .OnDelete(DeleteBehavior.Cascade);
             // builder.HasOne(m => m.Issuer)
             //         .WithMany(i => i.DeathNotification)
             //         .HasForeignKey(d => d.IssuerId)

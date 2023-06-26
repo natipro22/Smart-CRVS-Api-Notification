@@ -20,11 +20,7 @@ using AppDiv.CRVS.Domain.Configurations;
 
 namespace AppDiv.CRVS.Infrastructure
 {
-    public interface IDbContext
-    {
-
-    }
-    public class CRVSDbContext : AuditIdentityDbContext<ApplicationUser>, ICRVSDbContext
+    public class NotificationDbContext : AuditIdentityDbContext<ApplicationUser>, INotificationDbContext
     {
         private readonly IUserResolverService userResolverService;
         public DbSet<UserGroup> UserGroups { get; set; }
@@ -40,7 +36,7 @@ namespace AppDiv.CRVS.Infrastructure
         public DbSet<BirthNotification> BirthNotifications { get; set; }
 
 
-        public CRVSDbContext(DbContextOptions<CRVSDbContext> options, IUserResolverService userResolverService) : base(options)
+        public NotificationDbContext(DbContextOptions<NotificationDbContext> options, IUserResolverService userResolverService) : base(options)
         {
             this.ChangeTracker.LazyLoadingEnabled = false;
             this.userResolverService = userResolverService;

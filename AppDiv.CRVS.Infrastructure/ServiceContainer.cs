@@ -38,7 +38,13 @@ namespace AppDiv.CRVS.Infrastructure
                     options.UseMySql(configuration.GetConnectionString("CRVSConnectionString"),
                         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"),
                         mySqlOptions => mySqlOptions.EnableRetryOnFailure());
-                        // .EnableSensitiveDataLogging();
+                });
+            services.AddDbContext<NotificationDbContext>(
+                options =>
+                {
+                    options.UseMySql(configuration.GetConnectionString("NotificationConnectionString"),
+                        Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"),
+                        mySqlOptions => mySqlOptions.EnableRetryOnFailure());
                 });
 
             #endregion db configuration
@@ -52,6 +58,7 @@ namespace AppDiv.CRVS.Infrastructure
             #region  identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                       .AddEntityFrameworkStores<CRVSDbContext>()
+                      .AddEntityFrameworkStores<NotificationDbContext>()
                       .AddDefaultTokenProviders();
 
 
@@ -106,7 +113,7 @@ namespace AppDiv.CRVS.Infrastructure
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
-
+            services.AddTransient<IDeathNotificationRepository, DeathNotificationRepository>();
 
             services.AddScoped<CRVSDbContextInitializer>();
             services.AddHttpClient<ITwilioRestClient, TwilioClient>();

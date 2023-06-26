@@ -11,11 +11,10 @@ using System.Reflection;
 
 namespace AppDiv.CRVS.Infrastructure.Persistence
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseNotificationRepository<T> : IBaseRepository<T> where T : class
     {
-
-        private readonly CRVSDbContext _dbContext;
-        public BaseRepository(CRVSDbContext dbContext)
+        private readonly NotificationDbContext _dbContext;
+        public BaseNotificationRepository(NotificationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
