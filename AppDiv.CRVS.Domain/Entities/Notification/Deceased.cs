@@ -15,6 +15,6 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public bool IsDay { get; set; }
         public string Time { get; set; }
 
-        // public virtual DeathNotification DeathNotification { get; set; }
+        public virtual DeathNotification DeathNotification { get; set; }
     }
 }

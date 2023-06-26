@@ -85,7 +85,7 @@ namespace AppDiv.CRVS.Application.Features.Auth.ForgotPassword
             int expirySecond = 120;
             //send sms and get otp code
             var otpCode = await  _smsService.SendOtpAsync(user.PhoneNumber,"","is your password reset code ",expirySecond,6,0);
-            var updateResponse = await _identityService.UpdateUser(user.Id, user.UserName, user.Email, user.PersonalInfoId, otpCode.ToString(), DateTime.Now.AddSeconds(expirySecond));
+            var updateResponse = await _identityService.UpdateUser(user.Id, user.UserName, user.Email, user.IssuerId, otpCode.ToString(), DateTime.Now.AddSeconds(expirySecond));
             if (!updateResponse.Succeeded)
             {
                 throw new Exception(string.Join(",", updateResponse.Errors));

@@ -118,7 +118,7 @@ namespace AppDiv.CRVS.Infrastructure
                 Roles = JsonConvert.DeserializeObject<JArray>(JsonConvert.SerializeObject(roles2))
             }
             );
-            var personalInfoId = new Guid("67998869-cebb-4d3f-a241-fb96b350993f");
+            var IssuerId = new Guid("67998869-cebb-4d3f-a241-fb96b350993f");
 
 
             ApplicationUser user = new ApplicationUser()
@@ -149,7 +149,7 @@ namespace AppDiv.CRVS.Infrastructure
                 // },
                 //     PersonalInfo = new PersonalInfo
                 //     {
-                //         // Id = personalInfoId,
+                //         // Id = IssuerId,
                 //         FirstName = new JObject{
                 //           {"en","admin"} ,
                 //         },

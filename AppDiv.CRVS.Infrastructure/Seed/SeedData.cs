@@ -57,10 +57,10 @@ namespace AppDiv.CRVS.Infrastructure.Seed
 
                 Roles = JsonConvert.DeserializeObject<JArray>(JsonConvert.SerializeObject(roles))
             });
-            // var personalInfoId = new Guid("67998869-cebb-4d3f-a241-fb96b350993f");
+            // var IssuerId = new Guid("67998869-cebb-4d3f-a241-fb96b350993f");
             // var personalInfo = new PersonalInfo
             // {
-            //     Id = personalInfoId,
+            //     Id = IssuerId,
             //     FirstName = new JObject{
             //           {"en","admin"} ,
             //         },
@@ -141,7 +141,7 @@ namespace AppDiv.CRVS.Infrastructure.Seed
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 LockoutEnabled = false,
                 PhoneNumber = "1234567890",
-                // PersonalInfoId = personalInfoId,
+                // IssuerId = IssuerId,
 
             };
 

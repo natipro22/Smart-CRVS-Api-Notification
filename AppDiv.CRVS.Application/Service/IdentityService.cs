@@ -79,7 +79,7 @@ namespace AppDiv.CRVS.Application.Service
         // public string GetUserGroupId(string userId){
         //     return  _userManager.Users.First(u => u.Id == userId).UserGroupId;
         // }
-        public async Task<(Result, string)> createUser(string userName, string email, Guid personalInfoId, Guid userGroupId)
+        public async Task<(Result, string)> createUser(string userName, string email, Guid IssuerId, Guid userGroupId)
         {
             var existingUser = await _userManager.FindByEmailAsync(email);
             if (existingUser != null)
@@ -96,7 +96,7 @@ namespace AppDiv.CRVS.Application.Service
                 UserName = userName,
                 Email = email,
                 // UserGroupId = userGroupId,
-                // PersonalInfoId = personalInfoId
+                // IssuerId = IssuerId
             };
             string password = GeneratePassword();
             var result = await _userManager.CreateAsync(newUser, password);
@@ -174,7 +174,7 @@ namespace AppDiv.CRVS.Application.Service
             return Result.Success();
         }
 
-        public async Task<Result> UpdateUser(string id, string userName, string email, Guid personalInfoId, string? otp, DateTime? otpExpiredDate)
+        public async Task<Result> UpdateUser(string id, string userName, string email, Guid IssuerId, string? otp, DateTime? otpExpiredDate)
         {
 
             var user = await _userManager.FindByIdAsync(id.ToString());
@@ -189,7 +189,7 @@ namespace AppDiv.CRVS.Application.Service
             user.Email = email;
             user.Otp = otp;
             user.OtpExpiredDate = otpExpiredDate;
-            // user.PersonalInfoId = personalInfoId;
+            // user.IssuerId = IssuerId;
 
             var response = await _userManager.UpdateAsync(user);
 

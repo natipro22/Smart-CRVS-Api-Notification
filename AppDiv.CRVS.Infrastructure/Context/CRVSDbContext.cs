@@ -29,7 +29,9 @@ namespace AppDiv.CRVS.Infrastructure
         // public DbSet<BirthNotification> BirthNotifications { get; set; }
         public DbSet<Issuer> Issuers { get; set; }
         public DbSet<Deceased> Deceased { get; set; }
-        // public DbSet<DeathRegistrar> DeathRegistrars { get; set; }
+        public DbSet<MotherInfo> MotherInfo { get; set; }
+        public DbSet<ChildInfo> ChildInfos { get; set; }
+        public DbSet<DeathRegistrar> DeathRegistrars { get; set; }
         public DbSet<DeathNotification> DeathNotifications { get; set; }
         public DbSet<BirthNotification> BirthNotifications { get; set; }
 
@@ -52,7 +54,7 @@ namespace AppDiv.CRVS.Infrastructure
 
             #region Entity Configuration
             {
-                // modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+                modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
                 // modelBuilder.ApplyConfiguration(new UserGroupEntityConfiguration());
                 modelBuilder.ApplyConfiguration(new DeathNotificationEntityConfiguration());
                 modelBuilder.ApplyConfiguration(new IssuerEntityConfiguration());

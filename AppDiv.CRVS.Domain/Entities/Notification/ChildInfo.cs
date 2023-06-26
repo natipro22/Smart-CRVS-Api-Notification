@@ -4,6 +4,7 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
 {
     public class ChildInfo : BaseAuditableEntity
     {
+        public Guid? BirthNotificationId { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
@@ -13,5 +14,6 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string Time { get; set; }
         public bool IsDay { get; set; }
         // public Guid TypeOfBirth { get; set; }
+        public virtual BirthNotification BirthNotification { get; set; }
     }
 }

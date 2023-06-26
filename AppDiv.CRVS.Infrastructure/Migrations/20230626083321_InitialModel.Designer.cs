@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppDiv.CRVS.Infrastructure.Migrations
 {
     [DbContext(typeof(CRVSDbContext))]
-    [Migration("20230620111819_initialModel")]
-    partial class initialModel
+    [Migration("20230626083321_InitialModel")]
+    partial class InitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,6 +40,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<Guid>("IssuerId")
+                        .HasColumnType("char(36)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 
@@ -63,9 +66,6 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("PersonalInfoId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("longtext");
 
@@ -83,6 +83,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IssuerId")
+                        .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -137,6 +140,63 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.ToTable("BirthNotifications");
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.ChildInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("BirthNotificationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDay")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("SexLookupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<float>("WeightAtBirth")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BirthNotificationId");
+
+                    b.ToTable("ChildInfos");
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -182,6 +242,112 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.ToTable("DeathNotifications");
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathRegistrar", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("DeathNotificationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("RegistrationDate")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeathNotificationId")
+                        .IsUnique();
+
+                    b.ToTable("DeathRegistrars");
+                });
+
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Deceased", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("DateOfDeath")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("DeathNotificationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDay")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("SexLookupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("TitileLookupId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeathNotificationId")
+                        .IsUnique();
+
+                    b.ToTable("Deceased");
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -223,6 +389,50 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Issuers");
+                });
+
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.MotherInfo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("BirthNotificationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("MiddleName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BirthNotificationId")
+                        .IsUnique();
+
+                    b.ToTable("MotherInfo");
                 });
 
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.UserGroup", b =>
@@ -402,6 +612,17 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.ApplicationUser", b =>
+                {
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", "Issuer")
+                        .WithOne("User")
+                        .HasForeignKey("AppDiv.CRVS.Domain.ApplicationUser", "IssuerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Issuer");
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", b =>
                 {
                     b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", "Issuer")
@@ -413,6 +634,15 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                     b.Navigation("Issuer");
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.ChildInfo", b =>
+                {
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", "BirthNotification")
+                        .WithMany("Childrens")
+                        .HasForeignKey("BirthNotificationId");
+
+                    b.Navigation("BirthNotification");
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", b =>
                 {
                     b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", "Issuer")
@@ -422,6 +652,33 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Issuer");
+                });
+
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathRegistrar", b =>
+                {
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", "DeathNotification")
+                        .WithOne("Registrar")
+                        .HasForeignKey("AppDiv.CRVS.Domain.Entities.Notifications.DeathRegistrar", "DeathNotificationId");
+
+                    b.Navigation("DeathNotification");
+                });
+
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Deceased", b =>
+                {
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", "DeathNotification")
+                        .WithOne("Deceased")
+                        .HasForeignKey("AppDiv.CRVS.Domain.Entities.Notifications.Deceased", "DeathNotificationId");
+
+                    b.Navigation("DeathNotification");
+                });
+
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.MotherInfo", b =>
+                {
+                    b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", "BirthNotification")
+                        .WithOne("Mother")
+                        .HasForeignKey("AppDiv.CRVS.Domain.Entities.Notifications.MotherInfo", "BirthNotificationId");
+
+                    b.Navigation("BirthNotification");
                 });
 
             modelBuilder.Entity("ApplicationUserUserGroup", b =>
@@ -490,11 +747,31 @@ namespace AppDiv.CRVS.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", b =>
+                {
+                    b.Navigation("Childrens");
+
+                    b.Navigation("Mother")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.DeathNotification", b =>
+                {
+                    b.Navigation("Deceased")
+                        .IsRequired();
+
+                    b.Navigation("Registrar")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.Issuer", b =>
                 {
                     b.Navigation("BirthNotification");
 
                     b.Navigation("DeathNotification");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -46,7 +46,7 @@ namespace AppDiv.CRVS.Application.Features.Auth.Login
                                                     
                                                 };
             var userData = await _userRepository.GetWithAsync(response.userId, explicitLoadedProperties);
-            string token = _tokenGenerator.GenerateJWTToken((userData.Id, userData.UserName,userData.PersonalInfoId, response.roles));
+            string token = _tokenGenerator.GenerateJWTToken((userData.Id, userData.UserName,userData.IssuerId, response.roles));
             // _logger.LogCritical("auth");
             // _logger.LogCritical(userData.Id);
 
@@ -75,7 +75,7 @@ namespace AppDiv.CRVS.Application.Features.Auth.Login
                 UserId = userData.Id,
                 Name = userData.UserName,
                 Token = token,
-                PersonalInfoId = userData.PersonalInfoId,
+                IssuerId = userData.IssuerId,
                 GroupIds = userData.UserGroups.Select(g =>g.Id).ToList(),
                 Roles = userRoles.ToList(),
             };

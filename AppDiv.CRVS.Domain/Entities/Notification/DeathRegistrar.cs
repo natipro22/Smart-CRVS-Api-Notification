@@ -10,6 +10,6 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string LastName { get; set; } = string.Empty;
         public string RegistrationDate { get; set; }
 
-        // public virtual DeathNotification DeathNotification { get; set; }
+        public virtual DeathNotification DeathNotification { get; set; }
     }
 }

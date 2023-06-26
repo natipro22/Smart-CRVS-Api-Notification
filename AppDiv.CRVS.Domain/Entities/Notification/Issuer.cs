@@ -10,5 +10,6 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string IssuedDate { get; set; }
         public virtual ICollection<DeathNotification> DeathNotification { get; set; }
         public virtual ICollection<BirthNotification> BirthNotification { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

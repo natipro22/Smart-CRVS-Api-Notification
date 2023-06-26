@@ -15,9 +15,9 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
         public string CauseOfDeathStr { get; set; }
-        // public DeathRegistrar Registrar { get; set; }
         public Guid IssuerId { get; set; }
-        // public virtual Deceased Deceased { get; set; }
+        public DeathRegistrar Registrar { get; set; }
+        public virtual Deceased Deceased { get; set; }
         public virtual Issuer Issuer { get; set; }
 
         [NotMapped]
