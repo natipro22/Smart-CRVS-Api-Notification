@@ -5,7 +5,7 @@ namespace AppDiv.CRVS.Application.Interfaces.Persistence
 {
     public interface IDeathNotificationRepository : IBaseRepository<DeathNotification>
     {
-        // Task<DeathNotification> GetByIdAsync(Guid id);
-        // Task<List<DeathNotification>> GetMultipleDeathNotifications(List<Guid> Ids);
+        new IQueryable<DeathNotification> GetAll();
+        new Task<DeathNotification> GetAsync(object id);
     }
 }

@@ -10,6 +10,6 @@ namespace AppDiv.CRVS.Application.Contracts.Request.DeathNotifications
         public string FirstName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string RegistrationDate { get; set; }
+        public string RegistrationDateEt { get; set; }
     }
 }

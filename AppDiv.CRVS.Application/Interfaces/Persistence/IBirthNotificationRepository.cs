@@ -5,6 +5,8 @@ namespace AppDiv.CRVS.Application.Interfaces.Persistence
 {
     public interface IBirthNotificationRepository : IBaseRepository<BirthNotification>
     {
+        new IQueryable<BirthNotification> GetAll();
+        new Task<BirthNotification> GetAsync(object id);
         // Task<DeathNotification> GetByIdAsync(Guid id);
         // Task<List<DeathNotification>> GetMultipleDeathNotifications(List<Guid> Ids);
     }

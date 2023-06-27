@@ -11,7 +11,7 @@ namespace AppDiv.CRVS.Application.Contracts.Request.BirthNotifications
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public float WeightAtBirth { get; set; }
-        public string DateOfBirth { get; set; }
+        public string DateOfBirthEt { get; set; }
         public Guid SexLookupId { get; set; }
         public string Time { get; set; }
         public bool IsDay { get; set; }

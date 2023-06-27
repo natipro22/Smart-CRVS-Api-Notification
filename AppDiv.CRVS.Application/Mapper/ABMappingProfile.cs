@@ -69,8 +69,6 @@ namespace AppDiv.CRVS.Application.Mapper
             CreateMap<DeathRegistrar, DeathRegistrarDTO>().ReverseMap();
             CreateMap<Deceased, AddDeceased>().ReverseMap();
             CreateMap<Deceased, DeceasedDTO>().ReverseMap();
-            CreateMap<DeathRegistrar, UpdateDeathRegistrar>().ReverseMap();
-            CreateMap<Deceased, UpdateDeceased>().ReverseMap();
 
             CreateMap<BirthNotification, AddBirthNotification>().ReverseMap();
             CreateMap<BirthNotification, BirthNotificationDTO>().ReverseMap();
@@ -79,6 +77,11 @@ namespace AppDiv.CRVS.Application.Mapper
             CreateMap<MotherInfo, MotherInfoDTO>().ReverseMap();
             CreateMap<ChildInfo, AddChildInfo>().ReverseMap();
             CreateMap<ChildInfo, ChildInfoDTO>().ReverseMap();
+            
+            CreateMap<Issuer, IssuerDTO>().ReverseMap();
+            CreateMap<Issuer, AddIssuer>().ReverseMap();
+
+
 
             // CreateMap<Transaction, TransactionRequestDTO>().ReverseMap();
 

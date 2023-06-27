@@ -32,7 +32,6 @@ namespace AppDiv.CRVS.Application.Features.BirthNotifications.Query.GetAllBirthN
         }
         public async Task<PaginatedList<BirthNotificationDTO>> Handle(GetAllBirthNotificationQuery request, CancellationToken cancellationToken)
         {
-            var birthNotificationlist = _birthNotificationRepository.GetAll();
             return await _birthNotificationRepository.GetAll()
                                 .PaginateAsync<BirthNotification, BirthNotificationDTO>(request.PageCount ?? 1, request.PageSize ?? 10);
         }

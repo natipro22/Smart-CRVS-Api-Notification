@@ -13,7 +13,7 @@ namespace AppDiv.CRVS.Application.Contracts.Request.DeathNotifications
         public Guid TitileLookupId { get; set; }
         public int Age { get; set; }
         public Guid SexLookupId { get; set; }
-        public string DateOfDeath { get; set; }
+        public string DateOfDeathEt { get; set; }
         public bool IsDay { get; set; }
         public string Time { get; set; }
     }

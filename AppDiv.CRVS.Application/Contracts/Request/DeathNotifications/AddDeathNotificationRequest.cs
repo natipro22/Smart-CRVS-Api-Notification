@@ -13,7 +13,7 @@ namespace AppDiv.CRVS.Application.Contracts.Request.DeathNotifications
         public Guid FacilityAddressId { get; set; }
         public CauseOfDeath CauseOfDeath { get; set; }
         public Guid IssuerId { get; set; }
-        public string EssuedDate { get; set; }
+        public string IssuedDateEt { get; set; }
         public virtual AddDeathRegistrar Registrar { get; set; }
         public virtual AddDeceased Deceased { get; set; }
     }
