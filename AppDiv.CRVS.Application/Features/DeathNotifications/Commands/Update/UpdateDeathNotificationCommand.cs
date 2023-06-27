@@ -12,8 +12,9 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
         public Guid PlaceOfDeathId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
-        public string CauseOfDeathStr { get; set; }
+        public CauseOfDeath CauseOfDeath { get; set; }
         public Guid IssuerId { get; set; }
+        public string IssuedDateEt { get; set; }
         public virtual DeathRegistrarDTO Registrar { get; set; }
         public virtual DeceasedDTO Deceased { get; set; }
     }

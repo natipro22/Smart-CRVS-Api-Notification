@@ -14,15 +14,22 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
     public class CreateDeathNotificationCommandHandler : IRequestHandler<CreateDeathNotificationCommand, CreateDeathNotificationComandResponse>
     {
         private readonly IDeathNotificationRepository _deathNotificationRepository;
-        public CreateDeathNotificationCommandHandler(IDeathNotificationRepository deathNotificationRepository)
+        private readonly ILookupRepository _lookupRepository;
+        private readonly IAddressLookupRepository _addressRepository;
+
+        public CreateDeathNotificationCommandHandler(IDeathNotificationRepository deathNotificationRepository,
+                                                    ILookupRepository lookupRepository,
+                                                    IAddressLookupRepository addressRepository)
         {
             _deathNotificationRepository = deathNotificationRepository;
+            this._addressRepository = addressRepository;
+            this._lookupRepository = lookupRepository;
         }
         public async Task<CreateDeathNotificationComandResponse> Handle(CreateDeathNotificationCommand request, CancellationToken cancellationToken)
         {
             var CreateDeathNotificationComandResponse = new CreateDeathNotificationComandResponse();
 
-            var validator = new CreateDeathNotificationComadValidator(_deathNotificationRepository);
+            var validator = new CreateDeathNotificationComadValidator(_deathNotificationRepository, _lookupRepository, _addressRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             //Check and log validation errors

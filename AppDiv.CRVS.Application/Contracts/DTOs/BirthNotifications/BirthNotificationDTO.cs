@@ -14,7 +14,7 @@ namespace AppDiv.CRVS.Application.Contracts.DTOs
         public Guid DeliveryTypeId { get; set; }
         public Guid TypeOfBirth { get; set; }
         public Guid IssuerId { get; set; }
-        public string IssuedDate { get; set; }
+        public string IssuedDateEt { get; set; }
         public virtual IssuerDTO Issuer { get; set; }
         public ICollection<ChildInfoDTO> Childrens { get; set; }
     }

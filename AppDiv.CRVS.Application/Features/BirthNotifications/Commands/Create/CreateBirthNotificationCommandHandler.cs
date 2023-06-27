@@ -14,15 +14,22 @@ namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Create
     public class CreateBirthNotificationCommandHandler : IRequestHandler<CreateBirthNotificationCommand, CreateBirthNotificationComandResponse>
     {
         private readonly IBirthNotificationRepository _birthNotificationRepository;
-        public CreateBirthNotificationCommandHandler(IBirthNotificationRepository birthNotificationRepository)
+        private readonly ILookupRepository _lookupRepository;
+        private readonly IAddressLookupRepository _addressRepository;
+
+        public CreateBirthNotificationCommandHandler(IBirthNotificationRepository birthNotificationRepository, 
+                                                    ILookupRepository lookupRepository, 
+                                                    IAddressLookupRepository addressRepository)
         {
             _birthNotificationRepository = birthNotificationRepository;
+            _lookupRepository = lookupRepository;
+            _addressRepository = addressRepository;
         }
         public async Task<CreateBirthNotificationComandResponse> Handle(CreateBirthNotificationCommand request, CancellationToken cancellationToken)
         {
             var CreateBirthNotificationComandResponse = new CreateBirthNotificationComandResponse();
 
-            var validator = new CreateBirthNotificationComadValidator(_birthNotificationRepository);
+            var validator = new CreateBirthNotificationComadValidator(_birthNotificationRepository, _lookupRepository, _addressRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             //Check and log validation errors
