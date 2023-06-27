@@ -1,18 +1,9 @@
 using AppDiv.CRVS.Application.Common;
-using AppDiv.CRVS.Application.Contracts.DTOs;
-using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create;
+using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
 using AppDiv.CRVS.Application.Mapper;
-using AppDiv.CRVS.Domain.Entities;
 using AppDiv.CRVS.Domain.Entities.Notifications;
-using AppDiv.CRVS.Domain.Repositories;
 using MediatR;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppDiv.CRVS.Application.Features.Lookups.Command.Update
 {

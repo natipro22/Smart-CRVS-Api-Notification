@@ -95,6 +95,43 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Audit.AuditLog", b =>
+                {
+                    b.Property<Guid>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("AuditData")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("AuditDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("AuditUserId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Enviroment")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TablePk")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("AuditLogs");
+                });
+
             modelBuilder.Entity("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -105,7 +142,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("char(36)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
                     b.Property<Guid>("DeliveryTypeId")
                         .HasColumnType("char(36)");
@@ -116,6 +155,13 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                     b.Property<Guid>("FacilityOwnershipId")
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("IssuedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("IssuedDateEt")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<Guid>("IssuerId")
                         .HasColumnType("char(36)");
 
@@ -123,7 +169,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                         .HasColumnType("datetime(6)");
 
                     b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("char(36)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
                     b.Property<Guid>("PlaceOfBirthId")
                         .HasColumnType("char(36)");
@@ -145,6 +193,7 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                         .HasColumnType("char(36)");
 
                     b.Property<Guid?>("BirthNotificationId")
+                        .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -153,7 +202,10 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DateOfBirthEt")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -219,6 +271,13 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                     b.Property<Guid>("FacilityOwnershipId")
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("IssuedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("IssuedDateEt")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<Guid>("IssuerId")
                         .HasColumnType("char(36)");
 
@@ -274,7 +333,10 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("RegistrationDate")
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("RegistrationDateEt")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -292,8 +354,12 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("BirthDateEt")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -301,7 +367,10 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("DateOfDeath")
+                    b.Property<DateTime>("DateOfDeath")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("DateOfDeathEt")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -366,10 +435,6 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("IssuedDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -397,10 +462,15 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("BirthDateEt")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<Guid?>("BirthNotificationId")
+                        .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -638,7 +708,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                 {
                     b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", "BirthNotification")
                         .WithMany("Childrens")
-                        .HasForeignKey("BirthNotificationId");
+                        .HasForeignKey("BirthNotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BirthNotification");
                 });
@@ -680,7 +752,9 @@ namespace AppDiv.CRVS.Infrastructure.Migrations.NotificationDb
                 {
                     b.HasOne("AppDiv.CRVS.Domain.Entities.Notifications.BirthNotification", "BirthNotification")
                         .WithOne("Mother")
-                        .HasForeignKey("AppDiv.CRVS.Domain.Entities.Notifications.MotherInfo", "BirthNotificationId");
+                        .HasForeignKey("AppDiv.CRVS.Domain.Entities.Notifications.MotherInfo", "BirthNotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("BirthNotification");
                 });

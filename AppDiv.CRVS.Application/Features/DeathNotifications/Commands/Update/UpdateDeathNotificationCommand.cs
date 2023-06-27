@@ -1,9 +1,10 @@
 using AppDiv.CRVS.Application.Common;
 using AppDiv.CRVS.Application.Contracts.DTOs;
+using AppDiv.CRVS.Application.Contracts.DTOs.DeathNotifications;
 using AppDiv.CRVS.Application.Contracts.Request.DeathNotifications;
 using AppDiv.CRVS.Domain.Entities.Notifications;
 using MediatR;
-namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
+namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
 {
     public record UpdateDeathNotificationCommand : IRequest<BaseResponse>
     {
@@ -13,7 +14,7 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
         public Guid FacilityAddressId { get; set; }
         public string CauseOfDeathStr { get; set; }
         public Guid IssuerId { get; set; }
-        public virtual UpdateDeathRegistrar Registrar { get; set; }
-        public virtual UpdateDeceased Deceased { get; set; }
+        public virtual DeathRegistrarDTO Registrar { get; set; }
+        public virtual DeceasedDTO Deceased { get; set; }
     }
 }

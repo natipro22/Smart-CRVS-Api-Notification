@@ -16,6 +16,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using AppDiv.CRVS.Domain.Entities.Notifications;
 using AppDiv.CRVS.Application.Contracts.Request.DeathNotifications;
+using AppDiv.CRVS.Application.Contracts.DTOs.DeathNotifications;
+using AppDiv.CRVS.Application.Contracts.Request.BirthNotifications;
+using AppDiv.CRVS.Application.Contracts.DTOs.BirthNotifications;
+using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create;
+using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update;
+using AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Update;
 
 namespace AppDiv.CRVS.Application.Mapper
 {
@@ -57,11 +63,22 @@ namespace AppDiv.CRVS.Application.Mapper
 
             CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
             CreateMap<DeathNotification, AddDeathNotificationRequest>().ReverseMap();
+            CreateMap<DeathNotification, UpdateDeathNotificationCommand>().ReverseMap();
             CreateMap<DeathNotification, DeathNotificationDTO>().ReverseMap();
             CreateMap<DeathRegistrar, AddDeathRegistrar>().ReverseMap();
+            CreateMap<DeathRegistrar, DeathRegistrarDTO>().ReverseMap();
             CreateMap<Deceased, AddDeceased>().ReverseMap();
+            CreateMap<Deceased, DeceasedDTO>().ReverseMap();
             CreateMap<DeathRegistrar, UpdateDeathRegistrar>().ReverseMap();
             CreateMap<Deceased, UpdateDeceased>().ReverseMap();
+
+            CreateMap<BirthNotification, AddBirthNotification>().ReverseMap();
+            CreateMap<BirthNotification, BirthNotificationDTO>().ReverseMap();
+            CreateMap<BirthNotification, UpdateBirthNotificationCommand>().ReverseMap();
+            CreateMap<MotherInfo, AddMotherInfo>().ReverseMap();
+            CreateMap<MotherInfo, MotherInfoDTO>().ReverseMap();
+            CreateMap<ChildInfo, AddChildInfo>().ReverseMap();
+            CreateMap<ChildInfo, ChildInfoDTO>().ReverseMap();
 
             // CreateMap<Transaction, TransactionRequestDTO>().ReverseMap();
 

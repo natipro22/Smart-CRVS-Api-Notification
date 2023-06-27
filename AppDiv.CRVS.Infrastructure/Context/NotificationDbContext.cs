@@ -57,9 +57,8 @@ namespace AppDiv.CRVS.Infrastructure
                 modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
                 // modelBuilder.ApplyConfiguration(new UserGroupEntityConfiguration());
                 modelBuilder.ApplyConfiguration(new DeathNotificationEntityConfiguration());
+                modelBuilder.ApplyConfiguration(new BirthNotificationEntityConfiguration());
                 modelBuilder.ApplyConfiguration(new IssuerEntityConfiguration());
-                // modelBuilder.ApplyConfiguration(new DeathRegistrarEntityConfiguration());
-                // modelBuilder.ApplyConfiguration(new DeceasedEntityConfiguration());
             }
             #endregion
             base.OnModelCreating(modelBuilder);

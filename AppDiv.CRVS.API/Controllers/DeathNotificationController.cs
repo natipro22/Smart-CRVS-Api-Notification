@@ -11,6 +11,7 @@ using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create;
 using AppDiv.CRVS.Application.Features.DeathNotifications.Query.GetAllDeathNotification;
 using AppDiv.CRVS.Application.Features.DeathNotifications.Query.GetDeathNotificationById;
 using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Delete;
+using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update;
 
 namespace AppDiv.CRVS.API.Controllers
 {
