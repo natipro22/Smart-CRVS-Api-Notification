@@ -114,6 +114,7 @@ namespace AppDiv.CRVS.Infrastructure
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IDeathNotificationRepository, DeathNotificationRepository>();
+            services.AddTransient<IBirthNotificationRepository, BirthNotificationRepository>();
 
             services.AddScoped<CRVSDbContextInitializer>();
             services.AddHttpClient<ITwilioRestClient, TwilioClient>();

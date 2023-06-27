@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using AppDiv.CRVS.Domain.Base;
+using AppDiv.CRVS.Utility.Services;
 
 namespace AppDiv.CRVS.Domain.Entities.Notifications
 {
@@ -15,8 +17,22 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public Guid DeliveryTypeId { get; set; }
         public Guid TypeOfBirth { get; set; }
         public Guid IssuerId { get; set; }
+        public DateTime IssuedDate { get; set; }
+        public string IssuedDateEt { get; set; }
         public virtual Issuer Issuer { get; set; }
         public ICollection<ChildInfo> Childrens { get; set; }
+
+        [NotMapped]
+        public string? _IssuedDateEt
+        {
+            get { return IssuedDateEt; }
+            set
+            {
+                IssuedDateEt = value;
+
+                IssuedDate = new CustomDateConverter(IssuedDateEt).gorgorianDate;
+            }
+        }
 
     }
 }

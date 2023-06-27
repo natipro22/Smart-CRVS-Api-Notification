@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using AppDiv.CRVS.Domain.Base;
+using AppDiv.CRVS.Utility.Services;
 
 namespace AppDiv.CRVS.Domain.Entities.Notifications
 {
@@ -9,11 +11,23 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public float WeightAtBirth { get; set; }
-        public string DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirthEt { get; set; }
         public Guid SexLookupId { get; set; }
         public string Time { get; set; }
         public bool IsDay { get; set; }
         // public Guid TypeOfBirth { get; set; }
         public virtual BirthNotification BirthNotification { get; set; }
+
+        [NotMapped]
+        public string? _DateOfBirthEt
+        {
+            get { return DateOfBirthEt; }
+            set
+            {
+                DateOfBirthEt = value;
+                DateOfBirth = new CustomDateConverter(DateOfBirthEt).gorgorianDate;
+            }
+        }
     }
 }
