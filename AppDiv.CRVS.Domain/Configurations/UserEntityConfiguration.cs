@@ -10,12 +10,12 @@ namespace AppDiv.CRVS.Domain.Configuration
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.HasMany(m => m.UserGroups)
-               .WithMany(m => m.ApplicationUsers);
+            // builder.HasMany(m => m.UserGroups)
+            //    .WithMany(m => m.ApplicationUsers);
 
-            builder.HasOne(u => u.Issuer)
-            .WithOne(i => i.User)
-            .HasForeignKey<ApplicationUser>(u => u.IssuerId);
+            // builder.HasOne(u => u.Issuer)
+            // .WithOne(i => i.User)
+            // .HasForeignKey<ApplicationUser>(u => u.IssuerId);
 
         }
     }

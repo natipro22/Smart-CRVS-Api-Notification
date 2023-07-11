@@ -12,7 +12,7 @@ namespace AppDiv.CRVS.Domain
         // public Guid PersonalInfoId { get; set; }
         public Guid IssuerId { get; set; }
         // public Guid AddressId { get; set; }
-        public virtual ICollection<UserGroup> UserGroups { get; set; }
-        public virtual Issuer Issuer { get; set; }
+        // public virtual ICollection<UserGroup> UserGroups { get; set; }
+        // public virtual Issuer Issuer { get; set; }
     }
 }

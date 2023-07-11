@@ -19,7 +19,7 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public Guid IssuerId { get; set; }
         public DateTime IssuedDate { get; set; }
         public string IssuedDateEt { get; set; }
-        public virtual Issuer Issuer { get; set; }
+        // public virtual Issuer Issuer { get; set; }
         public ICollection<ChildInfo> Childrens { get; set; }
 
         [NotMapped]

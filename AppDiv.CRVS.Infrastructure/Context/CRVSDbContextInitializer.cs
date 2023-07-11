@@ -232,7 +232,7 @@ namespace AppDiv.CRVS.Infrastructure
                 //         },
 
                 //     },
-                UserGroups = groups,
+                // UserGroups = groups,
 
 
             };

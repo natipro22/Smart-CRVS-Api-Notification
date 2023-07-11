@@ -18,15 +18,15 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
         {
             return base.GetAll()
                             .Include(d => d.Registrar)
-                            .Include(d => d.Deceased)
-                            .Include(d => d.Issuer);
+                            .Include(d => d.Deceased);
+                            // .Include(d => d.Issuer);
         }
         public override async Task<DeathNotification> GetAsync(object id)
         {
             var toInclude = new Dictionary<String, NavigationPropertyType>
                                     {
                                         {"Registrar", NavigationPropertyType.REFERENCE},
-                                        {"Issuer", NavigationPropertyType.REFERENCE},
+                                        // {"Issuer", NavigationPropertyType.REFERENCE},
                                         {"Deceased", NavigationPropertyType.REFERENCE}
                                     };
             return await base.GetWithAsync(id,toInclude);

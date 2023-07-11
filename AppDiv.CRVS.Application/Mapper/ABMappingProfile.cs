@@ -1,8 +1,5 @@
 ﻿using AppDiv.CRVS.Application.Contracts.DTOs;
 using AppDiv.CRVS.Application.Contracts.Request;
-using AppDiv.CRVS.Application.Features.Groups.Commands.Create;
-using AppDiv.CRVS.Application.Features.User.Command.Create;
-using AppDiv.CRVS.Application.Features.User.Command.Update;
 using AppDiv.CRVS.Domain;
 using AppDiv.CRVS.Domain.Entities;
 using Application.Common.Mappings;
@@ -53,15 +50,15 @@ namespace AppDiv.CRVS.Application.Mapper
             // CreateMap<Address, AddAddressRequest>().ReverseMap();
 
             CreateMap<UserGroup, GroupDTO>().ReverseMap();
-            CreateMap<UserGroup, CreateGroupCommand>().ReverseMap();
+            // CreateMap<UserGroup, CreateGroupCommand>().ReverseMap();
 
             CreateMap<ApplicationUser, UserResponseDTO>().ReverseMap();
-            CreateMap<CreateUserCommand, ApplicationUser>()
-            .ForMember(x => x.UserGroups, opt => opt.Ignore())
-            .ReverseMap();
-            CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
+            // CreateMap<CreateUserCommand, ApplicationUser>()
+            // .ForMember(x => x.UserGroups, opt => opt.Ignore())
+            // .ReverseMap();
+            // CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
 
-            CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
+            // CreateMap<ApplicationUser, UpdateUserCommand>().ReverseMap();
             CreateMap<DeathNotification, AddDeathNotificationRequest>().ReverseMap();
             CreateMap<DeathNotification, UpdateDeathNotificationCommand>().ReverseMap();
             CreateMap<DeathNotification, DeathNotificationDTO>().ReverseMap();

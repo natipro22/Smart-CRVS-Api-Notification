@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
+namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
 {
-    public class CreateDeathNotificationComadValidator : AbstractValidator<CreateDeathNotificationCommand>
+    public class UpdateDeathNotificationComadValidator : AbstractValidator<UpdateDeathNotificationCommand>
     {
         private readonly IDeathNotificationRepository _repo;
         private readonly ILookupRepository _lookup;
         private readonly IAddressLookupRepository _address;
         private readonly IUserRepository _user;
 
-        public CreateDeathNotificationComadValidator(IDeathNotificationRepository repo,
+        public UpdateDeathNotificationComadValidator(IDeathNotificationRepository repo,
                                                     ILookupRepository lookup, 
                                                     IAddressLookupRepository address,
                                                     IUserRepository user)
@@ -25,22 +25,23 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
             this._address = address;
             this._user = user;
             this._lookup = lookup;
-            RuleFor(b => b.DeathNotification.FacilityOwnershipId)
+            RuleFor(b => b.FacilityOwnershipId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.DeathNotification.PlaceOfDeathId)
+            RuleFor(b => b.PlaceOfDeathId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.DeathNotification.Deceased.SexLookupId)
+            RuleFor(b => b.Deceased.SexLookupId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.DeathNotification.FacilityAddressId)
+            RuleFor(b => b.FacilityAddressId)
                     .MustAsync(CheckAddress)
                     .WithMessage("{PropertyName} Unable to Get the Address.");
-            RuleFor(b => b.DeathNotification.IssuerId)
+                    
+            RuleFor(b => b.IssuerId)
                     .Must(i => _user.CheckAny(i))
                     .WithMessage("{PropertyName} Unable to Get the User.");
             

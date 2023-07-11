@@ -8,8 +8,8 @@ namespace AppDiv.CRVS.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<UserGroup> builder)
         {
-            builder.HasMany(m => m.ApplicationUsers)
-               .WithMany(n => n.UserGroups);
+            // builder.HasMany(m => m.ApplicationUsers)
+            //    .WithMany(n => n.UserGroups);
         }
 
     }

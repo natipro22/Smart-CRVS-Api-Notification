@@ -58,9 +58,12 @@ namespace AppDiv.CRVS.Application.Service
         public async Task<string> GetUserNameAsync(string userId)
         {
             var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
-
-
             return user.UserName;
+        }
+
+        public bool Any(string userId)
+        {
+            return _userManager.Users.Any();
         }
         public async Task<Result> UnlockUserAsync(string userName)
         {

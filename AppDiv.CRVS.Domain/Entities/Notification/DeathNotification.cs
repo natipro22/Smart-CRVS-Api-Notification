@@ -21,7 +21,7 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string IssuedDateEt { get; set; }
         public DeathRegistrar Registrar { get; set; }
         public virtual Deceased Deceased { get; set; }
-        public virtual Issuer Issuer { get; set; }
+        // public virtual Issuer Issuer { get; set; }
 
         [NotMapped]
         public JObject? CauseOfDeath

@@ -10,24 +10,56 @@ namespace AppDiv.CRVS.Application.Features.Lookups.Command.Update
     public class UpdateDeathNotificationCommandHandler : IRequestHandler<UpdateDeathNotificationCommand, BaseResponse>
     {
         private readonly IDeathNotificationRepository _deathNotificationRepository;
-        public UpdateDeathNotificationCommandHandler(IDeathNotificationRepository deathNotificationRepository)
+        private readonly ILookupRepository _lookupRepository;
+        private readonly IAddressLookupRepository _addressRepository;
+        private readonly IUserRepository _userRepository;
+        public UpdateDeathNotificationCommandHandler(IDeathNotificationRepository deathNotificationRepository,
+                                                    ILookupRepository lookupRepository,
+                                                    IAddressLookupRepository addressRepository,
+                                                    IUserRepository userRepository)
         {
             _deathNotificationRepository = deathNotificationRepository;
+            this._addressRepository = addressRepository;
+            this._userRepository = userRepository;
+            this._lookupRepository = lookupRepository;
         }
         public async Task<BaseResponse> Handle(UpdateDeathNotificationCommand request, CancellationToken cancellationToken)
         {
-            var response  = new BaseResponse();
-            // var customerEntity = CustomerMapper.Mapper.Map<Customer>(request);
-            var deathNotification = CustomMapper.Mapper.Map<DeathNotification>(request);
+            var response = new BaseResponse();
+
             try
             {
-                _deathNotificationRepository.Update(deathNotification);
-                await _deathNotificationRepository.SaveChangesAsync(cancellationToken);
-                response.Updated("Death Notification");
+                var validator = new UpdateDeathNotificationComadValidator(_deathNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
+                var validationResult = await validator.ValidateAsync(request, cancellationToken);
+                //Check and log validation errors
+                if (validationResult.Errors.Count > 0)
+                {
+                    response.Success = false;
+                    response.ValidationErrors = new List<string>();
+                    foreach (var error in validationResult.Errors)
+                        response.ValidationErrors.Add(error.ErrorMessage);
+                    response.Message = response.ValidationErrors[0];
+                }
+                if (response.Success)
+                {
+                    // var customerEntity = CustomerMapper.Mapper.Map<Customer>(request);
+                    try
+                    {
+                        var deathNotification = CustomMapper.Mapper.Map<DeathNotification>(request);
+                        _deathNotificationRepository.Update(deathNotification);
+                        await _deathNotificationRepository.SaveChangesAsync(cancellationToken);
+                        response.Updated("Death Notification");
+                    }
+                    catch (Exception exp)
+                    {
+                        throw new ApplicationException(exp.Message);
+                    }
+                }
             }
-            catch (Exception exp)
+            catch (System.Exception ex)
             {
-                throw new ApplicationException(exp.Message);
+                response.BadRequest(ex.Message);
+                // throw;
             }
             return response;
         }

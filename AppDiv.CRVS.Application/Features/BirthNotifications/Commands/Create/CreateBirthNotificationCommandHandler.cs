@@ -7,6 +7,7 @@ using AppDiv.CRVS.Domain.Repositories;
 using MediatR;
 using ApplicationException = AppDiv.CRVS.Application.Exceptions.ApplicationException;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
+using AppDiv.CRVS.Application.Interfaces;
 
 namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Create
 {
@@ -16,20 +17,23 @@ namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Create
         private readonly IBirthNotificationRepository _birthNotificationRepository;
         private readonly ILookupRepository _lookupRepository;
         private readonly IAddressLookupRepository _addressRepository;
+        private readonly IUserRepository _userRepository;
 
         public CreateBirthNotificationCommandHandler(IBirthNotificationRepository birthNotificationRepository, 
                                                     ILookupRepository lookupRepository, 
-                                                    IAddressLookupRepository addressRepository)
+                                                    IAddressLookupRepository addressRepository,
+                                                    IUserRepository userRepository)
         {
             _birthNotificationRepository = birthNotificationRepository;
             _lookupRepository = lookupRepository;
             _addressRepository = addressRepository;
+            _userRepository = userRepository;
         }
         public async Task<CreateBirthNotificationComandResponse> Handle(CreateBirthNotificationCommand request, CancellationToken cancellationToken)
         {
             var CreateBirthNotificationComandResponse = new CreateBirthNotificationComandResponse();
 
-            var validator = new CreateBirthNotificationComadValidator(_birthNotificationRepository, _lookupRepository, _addressRepository);
+            var validator = new CreateBirthNotificationComadValidator(_birthNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             //Check and log validation errors

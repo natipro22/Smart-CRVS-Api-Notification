@@ -1,21 +1,25 @@
+using AppDiv.CRVS.Application.Interfaces.Persistence;
 using AppDiv.CRVS.Domain;
-using AppDiv.CRVS.Domain.Repositories;
 
 
 namespace AppDiv.CRVS.Infrastructure.Persistence
 {
     public class UserRepository : BaseRepository<ApplicationUser>, IUserRepository
     {
-        private readonly CRVSDbContext dbContext;
+        private readonly CRVSDbContext _dbContext;
 
         public UserRepository(CRVSDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
           public IQueryable<ApplicationUser> GetAllQueryableAsync()
         {
 
-            return dbContext.Users.AsQueryable();
+            return _dbContext.Users.AsQueryable();
+        }
+        public bool CheckAny(Guid issuerId)
+        {
+            return _dbContext.Users.Any(u => u.Id == issuerId.ToString());
         }
 
 
