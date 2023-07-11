@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AppDiv.CRVS.Application.Features.BirthNotifications.Query.GetBirthNotificationById
 {
-    // Customer GetBirthNotificationbyId with  response
+    // Get birth notificatation by id query.
     public class GetBirthNotificationById : IRequest<BirthNotificationDTO>
     {
         public Guid Id { get; private set; }
@@ -36,7 +36,9 @@ namespace AppDiv.CRVS.Application.Features.BirthNotifications.Query.GetBirthNoti
         }
         public async Task<BirthNotificationDTO> Handle(GetBirthNotificationById request, CancellationToken cancellationToken)
         {
+            // get the birth notification by id.
             var selectedBirthNotification = await _birthNotificationRepository.GetAsync(request.Id);
+            // Map to the DTO.
             return CustomMapper.Mapper.Map<BirthNotificationDTO>(selectedBirthNotification);
         }
     }

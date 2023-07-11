@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
 {
-    public class UpdateDeathNotificationComadValidator : AbstractValidator<UpdateDeathNotificationCommand>
+    // Update eath notification command validator.
+    public class UpdateDeathNotificationCommandValidator : AbstractValidator<UpdateDeathNotificationCommand>
     {
         private readonly IDeathNotificationRepository _repo;
         private readonly ILookupRepository _lookup;
         private readonly IAddressLookupRepository _address;
         private readonly IUserRepository _user;
 
-        public UpdateDeathNotificationComadValidator(IDeathNotificationRepository repo,
+        public UpdateDeathNotificationCommandValidator(IDeathNotificationRepository repo,
                                                     ILookupRepository lookup, 
                                                     IAddressLookupRepository address,
                                                     IUserRepository user)
@@ -25,6 +26,7 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
             this._address = address;
             this._user = user;
             this._lookup = lookup;
+            // Validate the inputs.
             RuleFor(b => b.FacilityOwnershipId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");

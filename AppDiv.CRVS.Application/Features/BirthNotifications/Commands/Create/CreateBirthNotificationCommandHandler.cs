@@ -1,13 +1,7 @@
-using System.Linq;
-using AppDiv.CRVS.Application.Exceptions;
-using AppDiv.CRVS.Application.Contracts.DTOs;
 using AppDiv.CRVS.Application.Mapper;
 using AppDiv.CRVS.Domain.Entities.Notifications;
-using AppDiv.CRVS.Domain.Repositories;
 using MediatR;
-using ApplicationException = AppDiv.CRVS.Application.Exceptions.ApplicationException;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
-using AppDiv.CRVS.Application.Interfaces;
 
 namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Create
 {
@@ -31,28 +25,36 @@ namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Create
         }
         public async Task<CreateBirthNotificationComandResponse> Handle(CreateBirthNotificationCommand request, CancellationToken cancellationToken)
         {
-            var CreateBirthNotificationComandResponse = new CreateBirthNotificationComandResponse();
+            var response = new CreateBirthNotificationComandResponse();
 
-            var validator = new CreateBirthNotificationComadValidator(_birthNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
-            var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-            //Check and log validation errors
-            if (validationResult.Errors.Count > 0)
+            try
             {
-                CreateBirthNotificationComandResponse.Success = false;
-                CreateBirthNotificationComandResponse.ValidationErrors = new List<string>();
-                foreach (var error in validationResult.Errors)
-                    CreateBirthNotificationComandResponse.ValidationErrors.Add(error.ErrorMessage);
-                CreateBirthNotificationComandResponse.Message = CreateBirthNotificationComandResponse.ValidationErrors[0];
+                // Validate the request inputs.
+                var validator = new CreateBirthNotificationCommandValidator(_birthNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
+                var validationResult = await validator.ValidateAsync(request, cancellationToken);
+    
+                //Check and log validation errors
+                if (!validationResult.IsValid)
+                {
+                    response.BadRequest(validationResult.Errors);
+                }
+                else
+                {
+                    // Map to the model entity.
+                    var birthNotification = CustomMapper.Mapper.Map<BirthNotification>(request.BirthNotification);
+                    // Insert into the database.
+                    await _birthNotificationRepository.InsertAsync(birthNotification, cancellationToken);
+                    await _birthNotificationRepository.SaveChangesAsync(cancellationToken);
+                    // Set the response to created.
+                    response.Created("Birth Notification");       
+                }
             }
-            if (CreateBirthNotificationComandResponse.Success)
+            catch (System.Exception ex)
             {
-                //
-                var birthNotification = CustomMapper.Mapper.Map<BirthNotification>(request.BirthNotification);
-                await _birthNotificationRepository.InsertAsync(birthNotification, cancellationToken);
-                var result = await _birthNotificationRepository.SaveChangesAsync(cancellationToken);       
+                // Set the response to Badrequest on exception.
+                response.BadRequest(ex.Message);
             }
-            return CreateBirthNotificationComandResponse;
+            return response;
         }
     }
 }

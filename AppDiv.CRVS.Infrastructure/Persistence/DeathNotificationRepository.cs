@@ -7,11 +7,11 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
 {
     public class DeathNotificationRepository : BaseNotificationRepository<DeathNotification>, IDeathNotificationRepository
     {
-        private readonly NotificationDbContext dbContext;
+        private readonly NotificationDbContext _dbContext;
 
         public DeathNotificationRepository(NotificationDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public override IQueryable<DeathNotification> GetAll()
@@ -30,6 +30,10 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
                                         {"Deceased", NavigationPropertyType.REFERENCE}
                                     };
             return await base.GetWithAsync(id,toInclude);
+        }
+        public override void Update(DeathNotification deathNotification)
+        {
+            this._dbContext.Update(deathNotification);
         }
 
     }

@@ -29,25 +29,25 @@ namespace AppDiv.CRVS.Application.Features.Lookups.Command.Update
 
             try
             {
-                var validator = new UpdateDeathNotificationComadValidator(_deathNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
+                // Validate the request inputs.
+                var validator = new UpdateDeathNotificationCommandValidator(_deathNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
                 var validationResult = await validator.ValidateAsync(request, cancellationToken);
                 //Check and log validation errors
-                if (validationResult.Errors.Count > 0)
+                if (!validationResult.IsValid)
                 {
-                    response.Success = false;
-                    response.ValidationErrors = new List<string>();
-                    foreach (var error in validationResult.Errors)
-                        response.ValidationErrors.Add(error.ErrorMessage);
-                    response.Message = response.ValidationErrors[0];
+                    response.BadRequest(validationResult.Errors);
                 }
-                if (response.Success)
+                else
                 {
                     // var customerEntity = CustomerMapper.Mapper.Map<Customer>(request);
                     try
                     {
+                        // Map to the model entity.
                         var deathNotification = CustomMapper.Mapper.Map<DeathNotification>(request);
+                        // Update the data.
                         _deathNotificationRepository.Update(deathNotification);
                         await _deathNotificationRepository.SaveChangesAsync(cancellationToken);
+                        // Set the response to updated.
                         response.Updated("Death Notification");
                     }
                     catch (Exception exp)
@@ -58,8 +58,8 @@ namespace AppDiv.CRVS.Application.Features.Lookups.Command.Update
             }
             catch (System.Exception ex)
             {
+                // Set the response to bad request on exception.
                 response.BadRequest(ex.Message);
-                // throw;
             }
             return response;
         }

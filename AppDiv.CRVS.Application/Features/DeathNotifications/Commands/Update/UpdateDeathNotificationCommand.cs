@@ -1,7 +1,5 @@
 using AppDiv.CRVS.Application.Common;
-using AppDiv.CRVS.Application.Contracts.DTOs;
 using AppDiv.CRVS.Application.Contracts.DTOs.DeathNotifications;
-using AppDiv.CRVS.Application.Contracts.Request.DeathNotifications;
 using AppDiv.CRVS.Domain.Entities.Notifications;
 using MediatR;
 namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update

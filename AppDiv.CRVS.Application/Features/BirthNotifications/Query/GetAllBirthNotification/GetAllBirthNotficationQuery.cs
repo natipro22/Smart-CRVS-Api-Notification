@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace AppDiv.CRVS.Application.Features.BirthNotifications.Query.GetAllBirthNotification
 
 {
-    // Customer query with List<Customer> response
+    // Get all birth notification query.
     public record GetAllBirthNotificationQuery : IRequest<PaginatedList<BirthNotificationDTO>>
     {
         public int? PageCount { set; get; } = 1!;

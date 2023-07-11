@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FluentValidation.Results;
 
 namespace AppDiv.CRVS.Application.Common
 {
@@ -47,6 +48,15 @@ namespace AppDiv.CRVS.Application.Common
             this.Status = 400;
             this.Message = message;
         }
+        public void BadRequest(List<ValidationFailure> errors)
+        {
+            this.Success = false;
+            this.Status = 400;
+            this.ValidationErrors = new List<string>();
+                    foreach (var error in errors)
+                        this.ValidationErrors.Add(error.ErrorMessage);
+                    this.Message = this.ValidationErrors[0];
+        }
 
         public void Deleted(string entityName = null)
         {
@@ -59,6 +69,12 @@ namespace AppDiv.CRVS.Application.Common
             this.Success = true;
             this.Status = 200;
             this.Message = $"{entityName} information has been updated!";
+        }
+        public void Created(string entityName = null, string message = null)
+        {
+            this.Success = true;
+            this.Status = 200;
+            this.Message = message ?? $"{entityName} created succusesfully.";
         }
 
     }

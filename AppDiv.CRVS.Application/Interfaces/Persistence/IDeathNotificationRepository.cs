@@ -7,5 +7,6 @@ namespace AppDiv.CRVS.Application.Interfaces.Persistence
     {
         new IQueryable<DeathNotification> GetAll();
         new Task<DeathNotification> GetAsync(object id);
+        new void Update(DeathNotification deathNotification);
     }
 }

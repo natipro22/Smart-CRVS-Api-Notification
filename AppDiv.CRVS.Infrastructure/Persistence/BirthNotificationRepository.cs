@@ -7,11 +7,11 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
 {
     public class BirthNotificationRepository : BaseNotificationRepository<BirthNotification>, IBirthNotificationRepository
     {
-        private readonly NotificationDbContext dbContext;
+        private readonly NotificationDbContext _dbContext;
 
         public BirthNotificationRepository(NotificationDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public override IQueryable<BirthNotification> GetAll()
@@ -20,6 +20,10 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
                             .Include(b => b.Mother)
                             .Include(b => b.Childrens);
                             // .Include(b => b.Issuer);
+        }
+        public override void Update(BirthNotification birthNotification)
+        {
+            this._dbContext.Update(birthNotification);
         }
 
         public override async Task<BirthNotification> GetAsync(object id)

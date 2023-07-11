@@ -1,11 +1,6 @@
-using System.Linq;
-using AppDiv.CRVS.Application.Exceptions;
-using AppDiv.CRVS.Application.Contracts.DTOs;
 using AppDiv.CRVS.Application.Mapper;
 using AppDiv.CRVS.Domain.Entities.Notifications;
-using AppDiv.CRVS.Domain.Repositories;
 using MediatR;
-using ApplicationException = AppDiv.CRVS.Application.Exceptions.ApplicationException;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
 
 namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
@@ -30,28 +25,37 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
         }
         public async Task<CreateDeathNotificationComandResponse> Handle(CreateDeathNotificationCommand request, CancellationToken cancellationToken)
         {
-            var CreateDeathNotificationComandResponse = new CreateDeathNotificationComandResponse();
+            var response = new CreateDeathNotificationComandResponse();
 
-            var validator = new CreateDeathNotificationComadValidator(_deathNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
-            var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-            //Check and log validation errors
-            if (validationResult.Errors.Count > 0)
+            try
             {
-                CreateDeathNotificationComandResponse.Success = false;
-                CreateDeathNotificationComandResponse.ValidationErrors = new List<string>();
-                foreach (var error in validationResult.Errors)
-                    CreateDeathNotificationComandResponse.ValidationErrors.Add(error.ErrorMessage);
-                CreateDeathNotificationComandResponse.Message = CreateDeathNotificationComandResponse.ValidationErrors[0];
+                // Validate the request inputs.
+                var validator = new CreateDeathNotificationCommandValidator(_deathNotificationRepository, _lookupRepository, _addressRepository, _userRepository);
+                var validationResult = await validator.ValidateAsync(request, cancellationToken);
+    
+                //Check and log validation errors
+                if (!validationResult.IsValid)
+                {
+                    response.BadRequest(validationResult.Errors);
+                }
+                else
+                {
+                    // Map to the model entity.
+                    var deathNotification = CustomMapper.Mapper.Map<DeathNotification>(request.DeathNotification);
+                    // Insert into the database.
+                    await _deathNotificationRepository.InsertAsync(deathNotification, cancellationToken);
+                    await _deathNotificationRepository.SaveChangesAsync(cancellationToken);
+                    // Set the response to created.
+                    response.Created("Death Notification");     
+                }
             }
-            if (CreateDeathNotificationComandResponse.Success)
+            catch (System.Exception ex)
             {
-                //
-                var deathNotification = CustomMapper.Mapper.Map<DeathNotification>(request.DeathNotification);
-                await _deathNotificationRepository.InsertAsync(deathNotification, cancellationToken);
-                var result = await _deathNotificationRepository.SaveChangesAsync(cancellationToken);       
+                // Set response to BadRequest on exception.
+                response.BadRequest(ex.Message);
+                // throw;
             }
-            return CreateDeathNotificationComandResponse;
+            return response;
         }
     }
 }

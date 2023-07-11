@@ -1,22 +1,17 @@
 using AppDiv.CRVS.Application.Interfaces.Persistence;
-using AppDiv.CRVS.Domain.Repositories;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
 {
-    public class CreateDeathNotificationComadValidator : AbstractValidator<CreateDeathNotificationCommand>
+    // Create death notification command validator.
+    public class CreateDeathNotificationCommandValidator : AbstractValidator<CreateDeathNotificationCommand>
     {
         private readonly IDeathNotificationRepository _repo;
         private readonly ILookupRepository _lookup;
         private readonly IAddressLookupRepository _address;
         private readonly IUserRepository _user;
 
-        public CreateDeathNotificationComadValidator(IDeathNotificationRepository repo,
+        public CreateDeathNotificationCommandValidator(IDeathNotificationRepository repo,
                                                     ILookupRepository lookup, 
                                                     IAddressLookupRepository address,
                                                     IUserRepository user)
@@ -25,6 +20,7 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create
             this._address = address;
             this._user = user;
             this._lookup = lookup;
+            // Validate the inputs.
             RuleFor(b => b.DeathNotification.FacilityOwnershipId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");

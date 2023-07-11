@@ -1,77 +1,56 @@
-using AppDiv.CRVS.Application.Contracts.DTOs.BirthNotifications;
 using AppDiv.CRVS.Application.Contracts.Request.BirthNotifications;
-using AppDiv.CRVS.Application.Interfaces;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
-using AppDiv.CRVS.Domain.Repositories;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Update
+namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Create
 {
-    public class UpdateBirthNotificationComadValidator : AbstractValidator<UpdateBirthNotificationCommand>
+    public class CreateBirthNotificationCommandValidator : AbstractValidator<CreateBirthNotificationCommand>
     {
         private readonly IBirthNotificationRepository _repo;
         private readonly ILookupRepository _lookup;
         private readonly IAddressLookupRepository _address;
         private readonly IUserRepository _user;
 
-        public UpdateBirthNotificationComadValidator(IBirthNotificationRepository repo, 
+        public CreateBirthNotificationCommandValidator(IBirthNotificationRepository repo, 
                                                     ILookupRepository lookup, 
-                                                    IAddressLookupRepository address, IUserRepository user)
+                                                    IAddressLookupRepository address, 
+                                                    IUserRepository user)
         {
             _repo = repo;
             this._address = address;
             this._user = user;
             this._lookup = lookup;
 
-            
-            RuleFor(b => b.DeliveryTypeId)
+            // Validate input fields.
+            RuleFor(b => b.BirthNotification.DeliveryTypeId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.TypeOfBirth)
+            RuleFor(b => b.BirthNotification.TypeOfBirth)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.PlaceOfBirthId)
+            RuleFor(b => b.BirthNotification.PlaceOfBirthId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.FacilityOwnershipId)
+            RuleFor(b => b.BirthNotification.FacilityOwnershipId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleForEach(b => b.Childrens)
+            RuleForEach(b => b.BirthNotification.Childrens)
                     .MustAsync(CheckGender)
                     .WithMessage("{PropertyName} Unable to Get the Childs Gender.");
-            RuleForEach(b => b.Childrens)
-                    .MustAsync(CheckChild)
-                    .WithMessage("{PropertyName} Unable to Get the Childs Gender.");
 
-            RuleFor(b => b.FacilityAddressId)
+            RuleFor(b => b.BirthNotification.FacilityAddressId)
                     .MustAsync(CheckAddress)
                     .WithMessage("{PropertyName} Unable to Get the Address.");
-
-            RuleFor(b => b.IssuerId)
+            RuleFor(b => b.BirthNotification.IssuerId)
                     .Must(i => _user.CheckAny(i))
                     .WithMessage("{PropertyName} Unable to Get the User.");
-
-            RuleFor(b => b.Id)
-                    .MustAsync(async (b, c) => await _repo.AnyAsync(n => n.Id == b))
-                    .WithMessage("{PropertyName} Unable to Specified Notification.");
-            
         }
 
-        private async Task<bool> CheckChild(ChildInfoDTO child, CancellationToken token)
-        {
-            return await _repo.AnyAsync(b => b.Childrens.Select(c => c.Id == child.Id) != null);
-        }
-
-        private Task<bool> CheckGender(ChildInfoDTO child, CancellationToken token)
+        private Task<bool> CheckGender(AddChildInfo child, CancellationToken token)
         {
             return CheckLookup(child.SexLookupId, token);
         }   
