@@ -26,4 +26,8 @@
     <ProjectReference Include="..\AppDiv.CRVS.Utility\AppDiv.CRVS.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Addresses\" />
+  </ItemGroup>
+
 </Project>

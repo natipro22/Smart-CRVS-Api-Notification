@@ -32,6 +32,7 @@ namespace AppDiv.CRVS.Infrastructure
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Lookup> Lookups { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
 
         public CRVSDbContext(DbContextOptions<CRVSDbContext> options, IUserResolverService userResolverService) : base(options)

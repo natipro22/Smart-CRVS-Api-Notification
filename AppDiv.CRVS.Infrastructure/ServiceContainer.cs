@@ -104,6 +104,7 @@ namespace AppDiv.CRVS.Infrastructure
             services.AddSingleton<IMailService, MailKitService>();
             services.AddSingleton<ISmsService, TwilioService>();
             services.AddSingleton<ISmsService, AfroMessageService>();
+            services.AddScoped<ISettingRepository, SettingRepository>();
 
 
 
