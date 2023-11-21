@@ -118,6 +118,7 @@ namespace AppDiv.CRVS.Infrastructure
             services.AddTransient<IBirthNotificationRepository, BirthNotificationRepository>();
             services.AddTransient<IOnlineApplicationRepository, OnlineApplicationRepository>();
             services.AddTransient<IAddressLookupRepository, AddressLookupRepository>();
+            services.AddTransient<ISettingRepository, SettingRepository>();
             services.AddTransient<ILookupRepository, LookupRepository>();
 
             services.AddScoped<CRVSDbContextInitializer>();

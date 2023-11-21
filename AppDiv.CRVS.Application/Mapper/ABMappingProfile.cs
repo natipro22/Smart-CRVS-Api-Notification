@@ -83,6 +83,7 @@ namespace AppDiv.CRVS.Application.Mapper
             
             CreateMap<Issuer, IssuerDTO>().ReverseMap();
             CreateMap<Issuer, AddIssuer>().ReverseMap();
+            CreateMap<Setting, SettingDTO>().ReverseMap();
 
 
 
