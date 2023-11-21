@@ -19,6 +19,8 @@ using AppDiv.CRVS.Application.Contracts.DTOs.BirthNotifications;
 using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Create;
 using AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update;
 using AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Update;
+using AppDiv.CRVS.Domain.Entities.Notification;
+using AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Update;
 
 namespace AppDiv.CRVS.Application.Mapper
 {
@@ -74,6 +76,10 @@ namespace AppDiv.CRVS.Application.Mapper
             CreateMap<MotherInfo, MotherInfoDTO>().ReverseMap();
             CreateMap<ChildInfo, AddChildInfo>().ReverseMap();
             CreateMap<ChildInfo, ChildInfoDTO>().ReverseMap();
+
+            CreateMap<OnlineApplication, AddOnlineApplication>().ReverseMap();
+            CreateMap<OnlineApplication, OnlineApplicationDTO>().ReverseMap();
+            CreateMap<OnlineApplication, UpdateOnlineApplicationCommand>().ReverseMap();
             
             CreateMap<Issuer, IssuerDTO>().ReverseMap();
             CreateMap<Issuer, AddIssuer>().ReverseMap();

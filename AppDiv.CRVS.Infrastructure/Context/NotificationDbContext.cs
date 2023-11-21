@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using AppDiv.CRVS.Domain.Configuration;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using AppDiv.CRVS.Domain.Configurations;
+using AppDiv.CRVS.Domain.Entities.Notification;
 
 namespace AppDiv.CRVS.Infrastructure
 {
@@ -37,6 +38,7 @@ namespace AppDiv.CRVS.Infrastructure
         public DbSet<DeathRegistrar> DeathRegistrars { get; set; }
         public DbSet<DeathNotification> DeathNotifications { get; set; }
         public DbSet<BirthNotification> BirthNotifications { get; set; }
+        public DbSet<OnlineApplication> OnlineApplications { get; set; }
 
 
         public NotificationDbContext(DbContextOptions<NotificationDbContext> options, IUserResolverService userResolverService) : base(options)
