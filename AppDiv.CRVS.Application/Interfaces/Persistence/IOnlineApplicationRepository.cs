@@ -9,6 +9,7 @@ namespace AppDiv.CRVS.Application.Interfaces.Persistence
         new IQueryable<OnlineApplication> GetAll();
         new Task<OnlineApplication> GetAsync(object id);
         new void Update(OnlineApplication birthNotification);
+        Task<string> RandomCodeAsync();
         // Task<DeathNotification> GetByIdAsync(Guid id);
         // Task<List<DeathNotification>> GetMultipleDeathNotifications(List<Guid> Ids);
     }

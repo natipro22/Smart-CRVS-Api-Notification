@@ -51,9 +51,12 @@ namespace AppDiv.CRVS.Utility.Services
         }
         public CustomDateConverter(string etDate, string pattern)
         {
-            this.gorgorianDate = this.EthiopicToGregorian(etDate, pattern);
-            var (day, month, year) = getSplitted(etDate, pattern);
-            this.Set(year, month, day);
+            
+           var gorDate = this.EthiopicToGregorian(etDate, pattern);
+           if(gorDate!= null) this.gorgorianDate = (DateTime)gorDate;
+            
+            var date = getSplitted(etDate, pattern);
+          if(date != null )  this.Set((int)(date?.year), (int)(date?.month), (int)(date?.day));
         }
         public CustomDateConverter(int year, int month, int day, int era)
         {
@@ -138,12 +141,15 @@ namespace AppDiv.CRVS.Utility.Services
         {
             return (_dateIsUnset) ? false : true;
         }
-        public (int day, int month, int year) getSplitted(string etDate)
+        public (int day, int month, int year)? getSplitted(string? etDate)
         {
-            return this.getSplitted(etDate, "dd/mm/yyyy");
+            return string.IsNullOrEmpty(etDate)?null: this.getSplitted(etDate, "dd/mm/yyyy");
         }
-        public (int day, int month, int year) getSplitted(string etDate, string pattern)
+        public (int day, int month, int year)? getSplitted(string? etDate, string pattern)
         {
+            if(string.IsNullOrEmpty(etDate)){
+                return null;
+            }
             int day = 0, month = 0, year = 0;
             var patternList = pattern.Split('/');
             var date = etDate.Split('/');
@@ -171,17 +177,24 @@ namespace AppDiv.CRVS.Utility.Services
                 }
                 else
                 {
-                    throw new Exception("message");
+                    throw new Exception("invalid pattern");
                 }
             }
             return (day, month, year);
         }
-        public DateTime EthiopicToGregorian(string etDate, string pattern)
+        public DateTime? EthiopicToGregorian(string? etDate, string pattern)
         {
-            var (day, month, year) = getSplitted(etDate, pattern);
-            etDate = $"{day}/{month}/{year}";
+            var date = getSplitted(etDate, pattern);
+            etDate =date ==null ?null: $"{date?.day}/{date?.month}/{date?.year}";
             this.EthiopicToGregorian(etDate);
             return DateTime.Now;
+        }
+        public string GetBudgetYear()
+        {
+            string year = (this.getSplitted(this.GregorianToEthiopic(DateTime.Now))?.year - 1).ToString();
+            string day = this.getSplitted(this.GregorianToEthiopic(DateTime.Now))?.day.ToString();
+            string budgetYear = $"{year}/11/{1}";
+            return budgetYear;
         }
 
         //    
@@ -513,27 +526,30 @@ namespace AppDiv.CRVS.Utility.Services
         private string[] monthNamesOr = { "Fulbaana", "Onkololeessa", "Sadaasa", "Mudde", "Amajjii", "Gurraandhala", "Bitootessa", "Eebla", "Caamsaa", "Waxabajjii", "Adoolessa", "Hagayya", "Qaam'ee" };
         private string[] dayNames = { "እሑድ", "ሰኞ", "ማክሰኞ", "ረቡዕ", "ሓሙስ", "ዓርብ", "ቅዳሜ" };
         private string[] eraNames = { "ዓ/ም", "ዓ/ዓ" };
-        public EthiopicDateTime(DateTime gcDateTime)
+        public EthiopicDateTime(DateTime? gcDateTime)
         {
-            _incomingDay = gcDateTime.Day;
-            _incomingMonth = gcDateTime.Month;
-            _incomingYear = gcDateTime.Year;
+            if(gcDateTime != null){
+
+            _incomingDay =  gcDateTime?.Day??_incomingDay;
+            _incomingMonth = gcDateTime?.Month??_incomingMonth;
+            _incomingYear = gcDateTime?.Year??_incomingYear;
             _incomingEra = CustomDateConverter.JD_EPOCH_OFFSET_AMETE_MIHRET;
-            _dayOfWeek = GetETDayOfWeek(gcDateTime);
+            _dayOfWeek = GetETDayOfWeek((DateTime)gcDateTime);
 
             DoConvertion();
+            }
         }
-        public string month;
-        public EthiopicDateTime(int month, string lang)
+        public string? month;
+        public EthiopicDateTime(int? month, string lang)
         {
-            this.month = GetETMonthNameAm(month, lang);
+          if(month != null)  this.month = GetETMonthNameAm((int)month, lang);
         }
 
-        public EthiopicDateTime(int day, int month, int year)
+        public EthiopicDateTime(int? day, int? month, int? year)
         {
-            _incomingDay = day;
-            _incomingMonth = month;
-            _incomingYear = year;
+            _incomingDay = day??_incomingDay;
+            _incomingMonth = month??_incomingMonth;
+            _incomingYear = year??_incomingYear;
             DoConvertion();
         }
         /// <summary>

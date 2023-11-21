@@ -3,6 +3,7 @@ using AppDiv.CRVS.Domain.Entities.Notifications;
 using MediatR;
 using AppDiv.CRVS.Application.Interfaces.Persistence;
 using AppDiv.CRVS.Domain.Entities.Notification;
+using AppDiv.CRVS.Utility.Services;
 
 namespace AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Create
 {
@@ -10,19 +11,12 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Create
     public class CreateOnlineApplicationCommandHandler : IRequestHandler<CreateOnlineApplicationCommand, CreateOnlineApplicationComandResponse>
     {
         private readonly IOnlineApplicationRepository _onlineApplicationRepository;
-        private readonly ILookupRepository _lookupRepository;
-        private readonly IAddressLookupRepository _addressRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly ISmsService _smsService;
 
-        public CreateOnlineApplicationCommandHandler(IOnlineApplicationRepository onlineApplicationRepository, 
-                                                    ILookupRepository lookupRepository, 
-                                                    IAddressLookupRepository addressRepository,
-                                                    IUserRepository userRepository)
+        public CreateOnlineApplicationCommandHandler(IOnlineApplicationRepository onlineApplicationRepository, ISmsService smsService)
         {
+            this._smsService = smsService;
             _onlineApplicationRepository = onlineApplicationRepository;
-            _lookupRepository = lookupRepository;
-            _addressRepository = addressRepository;
-            _userRepository = userRepository;
         }
         public async Task<CreateOnlineApplicationComandResponse> Handle(CreateOnlineApplicationCommand request, CancellationToken cancellationToken)
         {
@@ -43,9 +37,12 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Create
                 {
                     // Map to the model entity.
                     var onlineApplication = CustomMapper.Mapper.Map<OnlineApplication>(request.OnlineApplication);
+                    onlineApplication.ApplicationCode = await _onlineApplicationRepository.RandomCodeAsync();
                     // Insert into the database.
                     await _onlineApplicationRepository.InsertAsync(onlineApplication, cancellationToken);
                     await _onlineApplicationRepository.SaveChangesAsync(cancellationToken);
+                    var message = $"Your application successfuly submited to OCRA with the code number {onlineApplication.ApplicationCode}";
+                    await _smsService.SendSMS(onlineApplication.Phone, message);
                     // Set the response to created.
                     response.Created("Application");       
                 }
@@ -54,6 +51,7 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Create
             {
                 // Set the response to Badrequest on exception.
                 response.BadRequest(ex.Message);
+                throw;
             }
             return response;
         }
