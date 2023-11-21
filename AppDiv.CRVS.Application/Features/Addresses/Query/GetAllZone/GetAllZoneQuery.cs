@@ -17,14 +17,14 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllZone
 
 {
     // Customer query with List<Customer> response
-    public record GetAllZoneQuery : IRequest<PaginatedList<ZoneDTO>>
+    public record GetAllZoneQuery : IRequest<List<ZoneDTO>>
     {
         public int? PageCount { set; get; } = 1!;
         public int? PageSize { get; set; } = 10!;
         public string? SearchString { get; set; }
     }
 
-    public class GetAllZoneQueryHandler : IRequestHandler<GetAllZoneQuery, PaginatedList<ZoneDTO>>
+    public class GetAllZoneQueryHandler : IRequestHandler<GetAllZoneQuery, List<ZoneDTO>>
     {
         private readonly IAddressLookupRepository _AddresslookupRepository;
 
@@ -32,7 +32,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllZone
         {
             _AddresslookupRepository = AddresslookupRepository;
         }
-        public async Task<PaginatedList<ZoneDTO>> Handle(GetAllZoneQuery request, CancellationToken cancellationToken)
+        public async Task<List<ZoneDTO>> Handle(GetAllZoneQuery request, CancellationToken cancellationToken)
         {
             var query = _AddresslookupRepository.GetAll()
                     .Where(a => a.AdminLevel == 3 && !a.Status);
@@ -48,8 +48,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllZone
                         || ((a.ParentAddress != null && a.ParentAddress.ParentAddress != null) && EF.Functions.Like(a.ParentAddress.ParentAddress.AddressNameStr, "%" + request.SearchString + "%"))
                         );
             }
-            return await PaginatedList<ZoneDTO>
-              .CreateAsync(
+            return await 
                   query
                   .Select(a => new ZoneDTO
                   {
@@ -65,8 +64,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllZone
                       ParentAddressId =a.ParentAddressId,
                       AreaTypeLookupId = a.AreaTypeLookupId
 
-                  })
-                  , request.PageCount ?? 1, request.PageSize ?? 10);
+                  }).ToListAsync();
 
         }
 

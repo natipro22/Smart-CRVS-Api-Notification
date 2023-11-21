@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using AppDiv.CRVS.API.Helpers;
 using AppDiv.CRVS.Application.Common;
 using AppDiv.CRVS.Application.Contracts.DTOs;
@@ -42,101 +43,6 @@ namespace AppDiv.CRVS.API.Controllers
             return await _mediator.Send(query);
         }
 
-        //[HttpPost("Create")]
-        //// [ProducesResponseType(StatusCodes.Status200OK)]
-        //// [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        //public async Task<ActionResult<AddressDTO>> CreateAddress([FromBody] CreateAdderssCommand command)
-        //{
-
-        //    _Ilog.LogCritical(command.Address.Code);
-
-        //    var result = await _mediator.Send(command);
-        //    if (result.Success)
-        //    {
-        //        return Ok(result);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest(result);
-        //    }
-
-        //}
-
-        //[HttpPost("Merge")]
-        //public async Task<ActionResult<AddressDTO>> MerigeAndSplit([FromBody] MergeAndSplitCommand command)
-        //{
-            
-        //    var result = await _mediator.Send(command);
-        //    if (result.Success)
-        //    {
-        //        return Ok(result);
-        //    }
-        //    else
-        //    {
-        //        return BadRequest(result);
-        //    }
-
-        //}
-
-
-
-
-        //[HttpGet("{id}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<object> Get(Guid id)
-        //{
-        //    return await _mediator.Send(new GetAddressByIdQuery(id));
-        //}
-        //[HttpPut("Edit/{id}")]
-
-        //public async Task<ActionResult> Edit(Guid id, [FromBody] UpdateaddressCommand command)
-        //{
-        //    try
-        //    {
-        //        if (command.Id == id)
-        //        {
-        //            var result = await _mediator.Send(command);
-        //            return Ok(result);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest();
-        //        }
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        return BadRequest(exp.Message);
-        //    }
-        //}
-
-
-        //[HttpDelete("Delete")]
-
-        //public async Task<Object> DeleteAddress([FromBody] DeleteAddressCommand commads)
-        //{
-        //    try
-        //    {
-        //        var response = await _mediator.Send(commads);
-        //        if (response.Success)
-        //        {
-        //            return Ok(response);
-        //        }
-        //        else
-        //        {
-        //            return BadRequest(response);
-        //        }
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        var res = new BaseResponse
-        //        {
-        //            Success = false,
-        //            Message = exp.Message
-        //        };
-
-        //        return res;
-        //    }
-        //}
         [HttpGet]
         [Route("GetByParent")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -172,7 +78,7 @@ namespace AppDiv.CRVS.API.Controllers
         [Route("Country")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<PaginatedList<CountryDTO>> GetAllCountry([FromQuery] GetAllCountryQuery query)
+        public async Task<List<CountryDTO>> GetAllCountry([FromQuery] GetAllCountryQuery query)
         {
             return await _mediator.Send(query);
         }
@@ -181,7 +87,7 @@ namespace AppDiv.CRVS.API.Controllers
         [Route("Region")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<PaginatedList<RegionDTO>> GetAllRegion([FromQuery] GetAllRegionQuery query)
+        public async Task<List<RegionDTO>> GetAllRegion([FromQuery] GetAllRegionQuery query)
         {
             return await _mediator.Send(query);
         }
@@ -190,7 +96,7 @@ namespace AppDiv.CRVS.API.Controllers
         [Route("Zone")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<PaginatedList<ZoneDTO>> GetAllZone([FromQuery] GetAllZoneQuery query)
+        public async Task<List<ZoneDTO>> GetAllZone([FromQuery] GetAllZoneQuery query)
         {
             return await _mediator.Send(query);
         }
@@ -199,7 +105,7 @@ namespace AppDiv.CRVS.API.Controllers
         [Route("Woreda")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<PaginatedList<WoredaDTO>> GetAllWoreda([FromQuery] GetAllWoredaQuery query)
+        public async Task<List<WoredaDTO>> GetAllWoreda([FromQuery] GetAllWoredaQuery query)
         {
             return await _mediator.Send(query);
         }
@@ -208,25 +114,9 @@ namespace AppDiv.CRVS.API.Controllers
         [Route("Kebele")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public async Task<PaginatedList<KebeleDTO>> GetAllKebele([FromQuery] GetAllKebeleQuery query)
+        public async Task<List<KebeleDTO>> GetAllKebele([FromQuery] GetAllKebeleQuery query)
         {
             return await _mediator.Send(query);
         }
-
-        //[HttpPost]
-        //[Route("Import")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-
-        //public async Task<ImportAdderssCommandResponse> ImportAddress([FromBody] ImportAdderssCommand command)
-        //{
-        //    return await _mediator.Send(command);
-        //}
-        // [HttpGet]
-        //[Route("GetAllCountryCouch")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<List<AllCountryDto>> GetAllCountryCouch([FromQuery] GetAllCountryForpouch query)
-        //{
-        //    return await _mediator.Send(query);
-        //}
     }
 }

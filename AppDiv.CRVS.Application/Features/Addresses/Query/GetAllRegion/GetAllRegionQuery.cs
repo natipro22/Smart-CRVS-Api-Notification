@@ -9,14 +9,14 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllRegion
 
 {
     // Customer query with List<Customer> response
-    public record GetAllRegionQuery : IRequest<PaginatedList<RegionDTO>>
+    public record GetAllRegionQuery : IRequest<List<RegionDTO>>
     {
         public int? PageCount { set; get; } = 1!;
         public int? PageSize { get; set; } = 10!;
         public string? SearchString { get; set; }
     }
 
-    public class GetAllRegionQueryHandler : IRequestHandler<GetAllRegionQuery, PaginatedList<RegionDTO>>
+    public class GetAllRegionQueryHandler : IRequestHandler<GetAllRegionQuery, List<RegionDTO>>
     {
         private readonly IAddressLookupRepository _AddresslookupRepository;
 
@@ -24,7 +24,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllRegion
         {
             _AddresslookupRepository = AddresslookupRepository;
         }
-        public async Task<PaginatedList<RegionDTO>> Handle(GetAllRegionQuery request, CancellationToken cancellationToken)
+        public async Task<List<RegionDTO>> Handle(GetAllRegionQuery request, CancellationToken cancellationToken)
         {
             var query = _AddresslookupRepository.GetAll()
                     .Where(a => a.AdminLevel == 2 && !a.Status);
@@ -34,8 +34,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllRegion
                              || (a.ParentAddress != null && EF.Functions.Like(a.ParentAddress.AddressNameStr, "%" + request.SearchString + "%"))
                              );
             }
-            return await PaginatedList<RegionDTO>
-                .CreateAsync(
+            return await 
                    query
                     .Select(c => new RegionDTO
                     {
@@ -47,8 +46,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllRegion
                         AdminType = string.IsNullOrEmpty(c.AdminTypeLookup.ValueLang) ? null : c.AdminTypeLookup.ValueLang,
                         ParentAddressId = c.ParentAddressId,
                         AreaTypeLookupId = c.AreaTypeLookupId
-                    })
-                    , request.PageCount ?? 1, request.PageSize ?? 10);
+                    }).ToListAsync();
         }
 
     }

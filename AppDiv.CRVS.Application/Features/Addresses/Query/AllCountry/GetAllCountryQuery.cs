@@ -16,14 +16,14 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.AllCountry
 
 {
     // Customer query with List<Customer> response
-    public record GetAllCountryQuery : IRequest<PaginatedList<CountryDTO>>
+    public record GetAllCountryQuery : IRequest<List<CountryDTO>>
     {
         public int? PageCount { set; get; } = 1!;
         public int? PageSize { get; set; } = 10!;
         public string? SearchString { get; set; }
     }
 
-    public class GetAllCountryQueryHandler : IRequestHandler<GetAllCountryQuery, PaginatedList<CountryDTO>>
+    public class GetAllCountryQueryHandler : IRequestHandler<GetAllCountryQuery, List<CountryDTO>>
     {
         private readonly IAddressLookupRepository _AddresslookupRepository;
 
@@ -31,7 +31,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.AllCountry
         {
             _AddresslookupRepository = AddresslookupRepository;
         }
-        public async Task<PaginatedList<CountryDTO>> Handle(GetAllCountryQuery request, CancellationToken cancellationToken)
+        public async Task<List<CountryDTO>> Handle(GetAllCountryQuery request, CancellationToken cancellationToken)
         {
             var query = _AddresslookupRepository.GetAll()
                                 .Where(a => a.AdminLevel == 1 && !a.Status);
@@ -39,19 +39,16 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.AllCountry
             {
                 query = query.Where(a => EF.Functions.Like(a.AddressNameStr, "%" + request.SearchString + "%"));
             }
-            return await PaginatedList<CountryDTO>
-                            .CreateAsync(
-                               query
-                                .Select(c => new CountryDTO
-                                {
-                                    Id = c.Id,
-                                    Country = c.AddressNameLang,
-                                    Code = c.Code,
-                                    StatisticCode = c.StatisticCode,
-                                    AreaTypeLookupId = c.AreaTypeLookupId,
-                                    ParentAddressId = c.ParentAddressId
-                                })
-                                , request.PageCount ?? 1, request.PageSize ?? 10);
+            return await query
+                            .Select(c => new CountryDTO
+                            {
+                                Id = c.Id,
+                                Country = c.AddressNameLang,
+                                Code = c.Code,
+                                StatisticCode = c.StatisticCode,
+                                AreaTypeLookupId = c.AreaTypeLookupId,
+                                ParentAddressId = c.ParentAddressId
+                            }).ToListAsync();
 
         }
     }

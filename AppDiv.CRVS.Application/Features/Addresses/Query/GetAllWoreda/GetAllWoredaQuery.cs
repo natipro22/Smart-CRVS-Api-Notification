@@ -16,14 +16,14 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllWoreda
 
 {
     // Customer query with List<Customer> response
-    public record GetAllWoredaQuery : IRequest<PaginatedList<WoredaDTO>>
+    public record GetAllWoredaQuery : IRequest<List<WoredaDTO>>
     {
         public int? PageCount { set; get; } = 1!;
         public int? PageSize { get; set; } = 10!;
         public string? SearchString { get; set; }
     }
 
-    public class GetAllWoredaQueryHandler : IRequestHandler<GetAllWoredaQuery, PaginatedList<WoredaDTO>>
+    public class GetAllWoredaQueryHandler : IRequestHandler<GetAllWoredaQuery, List<WoredaDTO>>
     {
         private readonly IAddressLookupRepository _AddresslookupRepository;
 
@@ -31,7 +31,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllWoreda
         {
             _AddresslookupRepository = AddresslookupRepository;
         }
-        public async Task<PaginatedList<WoredaDTO>> Handle(GetAllWoredaQuery request, CancellationToken cancellationToken)
+        public async Task<List<WoredaDTO>> Handle(GetAllWoredaQuery request, CancellationToken cancellationToken)
         {
             var query = _AddresslookupRepository.GetAll()
                     .Where(a => a.AdminLevel == 4 && !a.Status);
@@ -44,8 +44,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllWoreda
                         || ((a.ParentAddress != null && a.ParentAddress.ParentAddress != null && a.ParentAddress.ParentAddress.ParentAddress != null) && EF.Functions.Like(a.ParentAddress.ParentAddress.ParentAddress.AddressNameStr, "%" + request.SearchString + "%"))
                         );
             }
-            return await PaginatedList<WoredaDTO>
-                .CreateAsync(
+            return await 
                     query
                     .Select(a => new WoredaDTO
                     {
@@ -65,8 +64,7 @@ namespace AppDiv.CRVS.Application.Features.AddressLookup.Query.GetAllWoreda
                         AdminType = string.IsNullOrEmpty(a.AdminTypeLookup.ValueLang) ? null : a.AdminTypeLookup.ValueLang,
                         ParentAddressId = a.ParentAddressId,
                         AreaTypeLookupId = a.AreaTypeLookupId
-                    })
-                    , request.PageCount ?? 1, request.PageSize ?? 10);
+                    }).ToListAsync();;
         }
 
     }
