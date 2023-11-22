@@ -41,7 +41,10 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Create
                     // Insert into the database.
                     await _onlineApplicationRepository.InsertAsync(onlineApplication, cancellationToken);
                     await _onlineApplicationRepository.SaveChangesAsync(cancellationToken);
-                    var message = $"Your {onlineApplication.EventType} application successfuly submited to OCRA with the code number {onlineApplication.ApplicationCode}";
+
+                    // send message to the applicant
+                    var message = $"Your {onlineApplication.EventType} application successfuly submited." +
+                                "Your application code is {onlineApplication.ApplicationCode}.";
                     await _smsService.SendSMS(onlineApplication.Phone, message);
                     // Set the response to created.
                     response.Created("Application");       
@@ -51,7 +54,7 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Commands.Create
             {
                 // Set the response to Badrequest on exception.
                 response.BadRequest(ex.Message);
-                throw;
+                // throw;
             }
             return response;
         }
