@@ -9,9 +9,8 @@ namespace AppDiv.CRVS.Application.Contracts.Request;
 
 public class AddOnlineApplication
 {
-    public string FullNameStr { get; set; }
+    public JObject FullName { get; set; }
     public string Phone { get; set; }
-    // public string? ApplicationCode { get; set; }
     public string EventType { get; set; }
     public JObject Content { get; set; }
 }

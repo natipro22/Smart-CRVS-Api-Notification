@@ -17,18 +17,18 @@ public class OnlineApplication : BaseAuditableEntity
     public string EventType { get; set; }
     public string ContentStr { get; set; }
 
-    // [NotMapped]
-    // public JObject? FullName 
-    // {
-    //     get
-    //     {
-    //         return JsonConvert.DeserializeObject<JObject>(string.IsNullOrEmpty(FullNameStr) ? "{}" : FullNameStr);
-    //     }
-    //     set
-    //     {
-    //         FullNameStr = value?.ToString();
-    //     }
-    // }
+    [NotMapped]
+    public JObject FullName 
+    {
+        get
+        {
+            return JsonConvert.DeserializeObject<JObject>(string.IsNullOrEmpty(FullNameStr) ? "{}" : FullNameStr);
+        }
+        set
+        {
+            FullNameStr = value?.ToString();
+        }
+    }
     [NotMapped]
     public JObject Content 
     {

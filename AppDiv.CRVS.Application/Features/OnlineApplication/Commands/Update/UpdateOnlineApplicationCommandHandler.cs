@@ -42,8 +42,14 @@ namespace AppDiv.CRVS.Application.Features.Lookups.Command.Update
                 {
                     try
                     {
+                        var applicationCode = _onlineApplicationRepository
+                            .GetAll()
+                            .Where(a => a.Id == request.Id)
+                            .Select(a => a.ApplicationCode)
+                            .FirstOrDefault();
                         // Map to the model entity.
                         var onlineApplication = CustomMapper.Mapper.Map<OnlineApplication>(request);
+                        onlineApplication.ApplicationCode = applicationCode;
                         // Update the data.
                         _onlineApplicationRepository.Update(onlineApplication);
                         await _onlineApplicationRepository.SaveChangesAsync(cancellationToken);

@@ -50,7 +50,10 @@ namespace AppDiv.CRVS.Application.Mapper
             // CreateMap<Address, CreateAdderssCommand>().ReverseMap();
             // CreateMap<Address, UpdateaddressCommand>().ReverseMap();
             // CreateMap<Address, AddAddressRequest>().ReverseMap();
-
+            CreateMap<AddOnlineApplication, OnlineApplication>();
+            CreateMap<UpdateOnlineApplicationCommand, OnlineApplication>();
+            CreateMap<OnlineApplication, OnlineApplicationDTO>();
+            
             CreateMap<UserGroup, GroupDTO>().ReverseMap();
             // CreateMap<UserGroup, CreateGroupCommand>().ReverseMap();
 
@@ -77,9 +80,7 @@ namespace AppDiv.CRVS.Application.Mapper
             CreateMap<ChildInfo, AddChildInfo>().ReverseMap();
             CreateMap<ChildInfo, ChildInfoDTO>().ReverseMap();
 
-            CreateMap<OnlineApplication, AddOnlineApplication>().ReverseMap();
-            CreateMap<OnlineApplication, OnlineApplicationDTO>().ReverseMap();
-            CreateMap<OnlineApplication, UpdateOnlineApplicationCommand>().ReverseMap();
+            
             
             CreateMap<Issuer, IssuerDTO>().ReverseMap();
             CreateMap<Issuer, AddIssuer>().ReverseMap();
