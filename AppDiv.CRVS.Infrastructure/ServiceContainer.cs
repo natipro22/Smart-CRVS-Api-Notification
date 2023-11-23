@@ -119,7 +119,10 @@ namespace AppDiv.CRVS.Infrastructure
             services.AddTransient<IOnlineApplicationRepository, OnlineApplicationRepository>();
             services.AddTransient<IAddressLookupRepository, AddressLookupRepository>();
             services.AddTransient<ISettingRepository, SettingRepository>();
+            services.AddTransient<ICourtRepository, CourtRepository>();
+            services.AddTransient<IReportRepostory, ReportRepostory>();
             services.AddTransient<ILookupRepository, LookupRepository>();
+            services.AddTransient<IDateAndAddressService, DateAndAddressService>();
 
             services.AddScoped<CRVSDbContextInitializer>();
             services.AddHttpClient<ITwilioRestClient, TwilioClient>();

@@ -44,7 +44,7 @@ namespace AppDiv.CRVS.Application.Mapper
             // CreateMap<Lookup, CreateLookupCommand>().ReverseMap();
             // CreateMap<Lookup, UpdateLookupCommand>().ReverseMap();
 
-            // CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<Court, CourtDTO>();
             // // CreateMap<AddressDTO, AddressForLookupDTO>().ReverseMap();
 
             // CreateMap<Address, CreateAdderssCommand>().ReverseMap();
