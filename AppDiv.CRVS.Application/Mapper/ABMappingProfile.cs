@@ -73,6 +73,7 @@ namespace AppDiv.CRVS.Application.Mapper
             CreateMap<Deceased, DeceasedDTO>().ReverseMap();
 
             CreateMap<BirthNotification, AddBirthNotification>().ReverseMap();
+            CreateMap<Attendant, AddAttendant>().ReverseMap();
             CreateMap<BirthNotification, BirthNotificationDTO>().ReverseMap();
             CreateMap<BirthNotification, UpdateBirthNotificationCommand>().ReverseMap();
             CreateMap<MotherInfo, AddMotherInfo>().ReverseMap();

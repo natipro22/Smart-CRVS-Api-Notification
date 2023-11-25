@@ -12,7 +12,7 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
 {
     public class DeathNotification : BaseAuditableEntity
     {
-        public Guid PlaceOfDeathId { get; set; }
+        public string PlaceOfDeathId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
         public string CauseOfDeathStr { get; set; }
@@ -21,8 +21,13 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string IssuedDateEt { get; set; }
         public DeathRegistrar Registrar { get; set; }
         public virtual Deceased Deceased { get; set; }
+        public string? Language { get; set; } = default!;
         // public virtual Issuer Issuer { get; set; }
 
+        public DeathNotification() : base()
+        {
+            Language = lang;
+        }
         [NotMapped]
         public JObject? CauseOfDeath
         {

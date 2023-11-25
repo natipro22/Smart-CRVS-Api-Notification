@@ -7,7 +7,7 @@ namespace AppDiv.CRVS.Application.Contracts.Request.BirthNotifications
 {
     public class AddBirthNotification
     {
-        public Guid PlaceOfBirthId { get; set; }
+        public string PlaceOfBirthId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
         public AddMotherInfo Mother { get; set; }
@@ -15,6 +15,7 @@ namespace AppDiv.CRVS.Application.Contracts.Request.BirthNotifications
         public Guid TypeOfBirth { get; set; }
         public Guid IssuerId { get; set; }
         public string IssuedDateEt { get; set; }
+        public AddAttendant Attendant { get; set; }
         public ICollection<AddChildInfo> Childrens { get; set; }
     }
 }

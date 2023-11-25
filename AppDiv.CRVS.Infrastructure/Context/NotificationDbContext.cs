@@ -39,6 +39,7 @@ namespace AppDiv.CRVS.Infrastructure
         public DbSet<DeathNotification> DeathNotifications { get; set; }
         public DbSet<BirthNotification> BirthNotifications { get; set; }
         public DbSet<OnlineApplication> OnlineApplications { get; set; }
+        public DbSet<Attendant> Attendants { get; set; }
 
 
         public NotificationDbContext(DbContextOptions<NotificationDbContext> options, IUserResolverService userResolverService) : base(options)

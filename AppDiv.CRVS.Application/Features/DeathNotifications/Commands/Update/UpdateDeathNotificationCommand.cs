@@ -7,7 +7,7 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
     public record UpdateDeathNotificationCommand : IRequest<BaseResponse>
     {
         public Guid Id { get; set; }
-        public Guid PlaceOfDeathId { get; set; }
+        public string PlaceOfDeathId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
         public CauseOfDeath CauseOfDeath { get; set; }

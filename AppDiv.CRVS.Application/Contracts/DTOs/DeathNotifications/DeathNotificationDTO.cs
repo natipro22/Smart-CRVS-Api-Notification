@@ -7,7 +7,7 @@ namespace AppDiv.CRVS.Application.Contracts.DTOs
     public class DeathNotificationDTO
     {
         public Guid Id { get; set; }
-        public Guid PlaceOfDeathId { get; set; }
+        public string PlaceOfDeathId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
         public JObject CauseOfDeath { get; set; }

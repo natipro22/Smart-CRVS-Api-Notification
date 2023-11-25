@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using AppDiv.CRVS.Domain.Base;
 using AppDiv.CRVS.Utility.Services;
+using Newtonsoft.Json.Linq;
 
 namespace AppDiv.CRVS.Domain.Entities.Notifications
 {
@@ -12,6 +13,12 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string LastName { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
         public string BirthDateEt { get; set; }
+        public string? Language { get; set; } = default!;
+
+        public MotherInfo() : base()
+        {
+            Language = lang;
+        }
         public virtual BirthNotification BirthNotification { get; set; }
 
         // [NotMapped]
@@ -33,6 +40,15 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
             {
                 BirthDate = DateTime.Now.AddYears(-value);
                 BirthDateEt = new CustomDateConverter(BirthDate).ethiopianDate;
+            }
+        }
+
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {MiddleName} {LastName}";
             }
         }
 

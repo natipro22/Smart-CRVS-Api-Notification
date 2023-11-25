@@ -38,10 +38,6 @@ namespace AppDiv.CRVS.Application.Features.BirthNotifications.Commands.Update
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.PlaceOfBirthId)
-                    .MustAsync(CheckLookup)
-                    .WithMessage("{PropertyName} Unable to Get the lookup.");
-
             RuleFor(b => b.FacilityOwnershipId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");

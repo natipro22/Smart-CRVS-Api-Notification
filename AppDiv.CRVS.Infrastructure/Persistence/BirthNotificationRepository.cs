@@ -18,8 +18,8 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
         {
             return base.GetAll()
                             .Include(b => b.Mother)
-                            .Include(b => b.Childrens);
-                            // .Include(b => b.Issuer);
+                            .Include(b => b.Childrens)
+                            .Include(b => b.Attendant);
         }
         public override void Update(BirthNotification birthNotification)
         {
@@ -31,7 +31,7 @@ namespace AppDiv.CRVS.Infrastructure.Persistence
             var toInclude = new Dictionary<String, NavigationPropertyType>
                                     {
                                         {"Mother", NavigationPropertyType.REFERENCE},
-                                        // {"Issuer", NavigationPropertyType.REFERENCE},
+                                        {"Attendant", NavigationPropertyType.REFERENCE},
                                         {"Childrens", NavigationPropertyType.COLLECTION}
                                     };
             return await base.GetWithAsync(id,toInclude);

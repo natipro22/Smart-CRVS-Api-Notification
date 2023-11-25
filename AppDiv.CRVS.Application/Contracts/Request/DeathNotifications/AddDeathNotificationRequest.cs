@@ -8,7 +8,7 @@ namespace AppDiv.CRVS.Application.Contracts.Request.DeathNotifications
 {
     public class AddDeathNotificationRequest
     {
-        public Guid PlaceOfDeathId { get; set; }
+        public string PlaceOfDeathId { get; set; }
         public Guid FacilityOwnershipId { get; set; }
         public Guid FacilityAddressId { get; set; }
         public CauseOfDeath CauseOfDeath { get; set; }

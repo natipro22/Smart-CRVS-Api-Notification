@@ -20,6 +20,12 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string Time { get; set; }
 
         public virtual DeathNotification DeathNotification { get; set; }
+        public string? Language { get; set; } = default!;
+
+        public Deceased() : base()
+        {
+            Language = lang;
+        }
 
         [NotMapped]
         public int Age
@@ -40,6 +46,15 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
             {
                 DateOfDeathEt = value;
                 DateOfDeath = new CustomDateConverter(DateOfDeathEt).gorgorianDate;
+            }
+        }
+
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {MiddleName} {LastName}";
             }
         }
     }

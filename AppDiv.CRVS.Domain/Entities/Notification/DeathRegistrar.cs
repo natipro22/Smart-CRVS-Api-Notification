@@ -14,6 +14,12 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public string RegistrationDateEt { get; set; }
 
         public virtual DeathNotification DeathNotification { get; set; }
+        public string? Language { get; set; } = default!;
+
+        public DeathRegistrar() : base()
+        {
+            Language = lang;
+        }
 
         [NotMapped]
         public string? _RegistrationDateEt
@@ -24,6 +30,15 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
                 RegistrationDateEt = value;
 
                 RegistrationDate = new CustomDateConverter(RegistrationDateEt).gorgorianDate;
+            }
+        }
+
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {MiddleName} {LastName}";
             }
         }
     }

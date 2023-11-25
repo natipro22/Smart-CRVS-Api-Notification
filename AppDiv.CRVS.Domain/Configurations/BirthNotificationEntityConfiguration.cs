@@ -23,6 +23,11 @@ namespace AppDiv.CRVS.Domain.Configurations
                .WithOne(d => d.BirthNotification)
                .HasForeignKey(d => d.BirthNotificationId)
                .OnDelete(DeleteBehavior.Cascade);
+            
+            // builder.HasOne(m => m.Attendant)
+            //     .WithMany(d => d.BirthNotifications)
+            //     .HasForeignKey(m => m.AttendantId)
+            //     .OnDelete(DeleteBehavior.NoAction);
             // builder.HasOne(m => m.Issuer)
             //         .WithMany(i => i.BirthNotification)
             //         .HasForeignKey(d => d.IssuerId)

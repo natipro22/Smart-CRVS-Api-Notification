@@ -31,10 +31,6 @@ namespace AppDiv.CRVS.Application.Features.DeathNotifications.Commands.Update
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");
 
-            RuleFor(b => b.PlaceOfDeathId)
-                    .MustAsync(CheckLookup)
-                    .WithMessage("{PropertyName} Unable to Get the lookup.");
-
             RuleFor(b => b.Deceased.SexLookupId)
                     .MustAsync(CheckLookup)
                     .WithMessage("{PropertyName} Unable to Get the lookup.");

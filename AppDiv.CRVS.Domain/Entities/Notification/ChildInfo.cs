@@ -18,6 +18,12 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
         public bool IsDay { get; set; }
         // public Guid TypeOfBirth { get; set; }
         public virtual BirthNotification BirthNotification { get; set; }
+        public string? Language { get; set; } = default!;
+
+        public ChildInfo() : base()
+        {
+            Language = lang;
+        }
 
         [NotMapped]
         public string? _DateOfBirthEt
@@ -27,6 +33,15 @@ namespace AppDiv.CRVS.Domain.Entities.Notifications
             {
                 DateOfBirthEt = value;
                 DateOfBirth = new CustomDateConverter(DateOfBirthEt).gorgorianDate;
+            }
+        }
+
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {MiddleName} {LastName}";
             }
         }
     }

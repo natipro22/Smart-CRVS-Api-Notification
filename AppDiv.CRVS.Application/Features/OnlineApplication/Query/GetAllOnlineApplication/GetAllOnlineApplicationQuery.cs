@@ -21,6 +21,7 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Query.GetAllOnline
     {
         public int? PageCount { set; get; } = 1!;
         public int? PageSize { get; set; } = 10!;
+        public string? SearchString { get; set; }
     }
 
     public class GetAllOnlineApplicationQueryHandler : IRequestHandler<GetAllOnlineApplicationQuery, PaginatedList<OnlineApplicationDTO>>
@@ -33,8 +34,13 @@ namespace AppDiv.CRVS.Application.Features.OnlineApplications.Query.GetAllOnline
         }
         public async Task<PaginatedList<OnlineApplicationDTO>> Handle(GetAllOnlineApplicationQuery request, CancellationToken cancellationToken)
         {
-            return await _onlineApplicationRepository.GetAll()
-                                .PaginateAsync<OnlineApplication, OnlineApplicationDTO>(request.PageCount ?? 1, request.PageSize ?? 10);
+            var onlineApplications = _onlineApplicationRepository.GetAll();
+            if (request.SearchString is not null)
+            {
+                onlineApplications.Where(a => a.ApplicationCode == request.SearchString);
+            }
+            return await onlineApplications
+                    .PaginateAsync<OnlineApplication, OnlineApplicationDTO>(request.PageCount ?? 1, request.PageSize ?? 10);
         }
     }
 }
